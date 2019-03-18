@@ -1,6 +1,6 @@
-#include <stdio.h>
+#include "main.h"
 
 int main() {
-    printf("Bonjour le monde");
+    log_info("test");
     return 0;
 }
