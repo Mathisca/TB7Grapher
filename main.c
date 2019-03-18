@@ -2,6 +2,6 @@
 
 int main() {
     log_info("test");
-    printf("Salut");
+    printf("Hello");
     return 0;
 }
