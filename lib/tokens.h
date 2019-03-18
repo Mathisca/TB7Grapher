@@ -14,6 +14,29 @@ enum TOKEN {
 };
 typedef enum TOKEN TOKEN;
 
+enum FUNCTIONS {
+    SIN,
+    COS,
+    TAN,
+    SINC,
+    ABS,
+    EXP,
+    LOG,
+    LN
+
+};
+typedef enum FUNCTIONS FUNCTIONS;
+
+enum OPERATORS{
+    MULTIPLY,
+    DIVIDE,
+    PLUS,
+    MINUS,
+    POWER
+};
+typedef enum OPERATORS OPERATORS;
+
+
 typedef struct entitySt * Entity;
 
 struct entitySt {
