@@ -1,6 +1,6 @@
 Projet TB7
 
-grapher: Mathis/Marianne
-lexicalAnalyser: Salim/Benoit
-syntaxAnalyser: Jeremy/Bastien
-codeInterpreter: Flavie/Louise
+lexicalAnalyser: Salim/Benoit > Identifie les fonctions
+syntaxAnalyser: Jeremy/Bastien > Crée arbre binaire
+codeInterpreter: Flavie/Louise > Calcule arbre binaire
+grapher: Mathis/Marianne > Affiche calculs
