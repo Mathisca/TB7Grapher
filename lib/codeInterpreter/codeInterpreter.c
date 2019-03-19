@@ -7,7 +7,7 @@ Result result(Entity e, double x) {
     r.value = 0;
     r.error = NO_ERROR;
 
-    if (e == NULL) {
+    if (e == NULL || e->element.token == ERROR) {
         r.error = NO_INPUT;
         return r;
     } else {
@@ -29,19 +29,24 @@ Result result(Entity e, double x) {
         }
 
         if (e->element.token == OPERATOR) {
-            if (e->element.value.operators == MULTIPLY) {
-                fx = result(e->left_operand, x).value * result(e->right_operand, x).value;
-            } else if (e->element.value.operators == DIVIDE) {
-                if (e->left_operand->element.value.real == 0) {
-                    r.error = DIV_BY_ZERO;
-                }
-                fx = result(e->left_operand, x).value / result(e->right_operand, x).value;
-            } else if (e->element.value.operators == PLUS) {
-                fx = result(e->left_operand, x).value + result(e->right_operand, x).value;
-            } else if (e->element.value.operators == MINUS) {
-                fx = result(e->left_operand, x).value - result(e->right_operand, x).value;
-            } else if (e->element.value.operators == POWER) {
-                fx = pow((result(e->left_operand, x).value), (result(e->right_operand, x).value));
+            switch(e->element.value.operators) {
+                case MULTIPLY:
+                    fx = result(e->left_operand, x).value * result(e->right_operand, x).value;
+                    break;
+                case DIVIDE:
+                    if (e->left_operand->element.value.real == 0) {
+                        r.error = DIV_BY_ZERO;
+                    }
+                    fx = result(e->left_operand, x).value / result(e->right_operand, x).value;
+                    break;
+                case PLUS:
+                    fx = result(e->left_operand, x).value + result(e->right_operand, x).value;
+                    break;
+                case MINUS:
+                    fx = result(e->left_operand, x).value - result(e->right_operand, x).value;
+                    break;
+                case POWER:
+                    fx = pow((result(e->left_operand, x).value), (result(e->right_operand, x).value));
             }
         } else if (e->element.token == FUNCTION) {
             switch(e->element.value.functions) {
@@ -51,37 +56,54 @@ Result result(Entity e, double x) {
                 case COS:
                     fx = cos(result(e->left_operand, x).value);
                     break;
-                default:
-                    // else
+                case TAN:
+                    fx = tan(result(e->left_operand, x).value);
                     break;
-            }
-
-
-            if (e->element.value.operators == SIN) {
-                fx = sin(result(e->left_operand, x).value);
-            } else if (e->element.value.operators == COS) {
-                fx = cos(result(e->left_operand, x).value);
-            } else if (e->element.value.operators == TAN) {
-                fx = tan(result(e->left_operand, x).value);
-            } else if (e->element.value.operators == SINC) {
-                if (e->left_operand->element.value.real == 0) {
-                    r.error = DIV_BY_ZERO;
-                }
-                fx = (sin(result(e->left_operand, x).value) / result(e->left_operand, x).value);
-            } else if (e->element.value.operators == ABS) {
-                fx = fabs(result(e->left_operand, x).value);
-            } else if (e->element.value.operators == EXP) {
-                fx = exp(result(e->left_operand, x).value);
-            } else if (e->element.value.operators == LOG) {
-                if (e->left_operand->element.value.real <= 0) {
-                    r.error = NON_REAL_OPERATION;
-                } else
+                case SINC:
+                    if (e->left_operand->element.value.real == 0) {
+                        r.error = DIV_BY_ZERO;
+                    }
+                    fx = (sin(result(e->left_operand, x).value) / result(e->left_operand, x).value);
+                    break;
+                case COSC:
+                    if (e->left_operand->element.value.real == 0) {
+                        r.error = DIV_BY_ZERO;
+                    }
+                    fx = (cos(result(e->left_operand, x).value) / result(e->left_operand, x).value);
+                    break;
+                case TANC:
+                    if (e->left_operand->element.value.real == 0) {
+                        r.error = DIV_BY_ZERO;
+                    }
+                    fx = (tan(result(e->left_operand, x).value) / result(e->left_operand, x).value);
+                    break;
+                case ABS:
+                    fx = fabs(result(e->left_operand, x).value);
+                    break;
+                case SQRT:
+                    if (e->left_operand->element.value.real < 0) {
+                        r.error = NON_REAL_OPERATION;
+                    }
+                    fx = sqrt(result(e->left_operand, x).value);
+                    break;
+                case EXP:
+                    fx = exp(result(e->left_operand, x).value);
+                    break;
+                case LOG:
+                    if (e->left_operand->element.value.real <= 0) {
+                        r.error = NON_REAL_OPERATION;
+                    }
                     fx = log10(result(e->left_operand, x).value);
-            } else if (e->element.value.operators == LN) {
-                if (e->left_operand->element.value.real <= 0) {
-                    r.error = NON_REAL_OPERATION;
-                } else
+                    break;
+                case LN:
+                    if (e->left_operand->element.value.real <= 0) {
+                        r.error = NON_REAL_OPERATION;
+                    }
                     fx = log(result(e->left_operand, x).value);
+                    break;
+                default:
+                    fx = 0;
+                    break;
             }
         }
 

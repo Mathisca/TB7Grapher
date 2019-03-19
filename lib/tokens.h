@@ -21,7 +21,16 @@ typedef enum FUNCTIONS {
     ABS,
     EXP,
     LOG,
-    LN
+    LN,
+    COSC,
+    TANC,
+    SINH,
+    COSH,
+    TANH,
+    SQRT,
+    ARCSIN,
+    ARCCOS,
+    ARCTAN
 
 } FUNCTIONS;
 
