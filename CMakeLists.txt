@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+ cmake_minimum_required(VERSION 3.12)
 project(TB7Grapher C)
 
 set(CMAKE_C_STANDARD 11)
@@ -11,4 +11,5 @@ if (UNIX)
 else()
     target_link_libraries(TB7Grapher m)
 endif()
+
 
