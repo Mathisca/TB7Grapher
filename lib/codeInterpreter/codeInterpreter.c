@@ -1,7 +1,7 @@
 #include "codeInterpreter.h"
-/*
 
-double result (Entity e, double x){
+/*
+Result result (Entity e, double x){
     double fx = 0;
 if (e == NULL){
     return 0;
@@ -65,5 +65,5 @@ if (e == NULL){
     }
 
 }
-    return fx;
+    //return fx;
 }*/

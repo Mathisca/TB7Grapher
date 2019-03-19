@@ -42,7 +42,7 @@ void testInterpreter() {
 
 }
 
-ElementList createMockElement(TOKENS token, Union u) {
+ElementList createMockElement(TOKENS token, Valeur u) {
     ElementList list = (ElementList) malloc(sizeof(struct elementListSt));
     Element e;
     e.token = token;
@@ -52,26 +52,26 @@ ElementList createMockElement(TOKENS token, Union u) {
 }
 
 ElementList createMockList() {
-    Union u1;
+    Valeur u1;
     u1.functions = SIN;
     ElementList list = createMockElement(FUNCTION, u1);
-    Union u2;
+    Valeur u2;
     u2.real = 0.0f;
     list->nextElement = createMockElement(PAR_OPN, u2);
     list->nextElement->nextElement = createMockElement(PAR_OPN, u2);
-    Union u3;
+    Valeur u3;
     u3.real = 2.0f;
     list->nextElement->nextElement = createMockElement(REAL, u3);
-    Union u4;
+    Valeur u4;
     u4.operators = MULTIPLY;
     list->nextElement->nextElement->nextElement = createMockElement(OPERATOR, u4);
     list->nextElement->nextElement->nextElement->nextElement = createMockElement(VARIABLE, u4);
     list->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(PAR_CLS, u4);
-    Union u5;
+    Valeur u5;
     u5.operators = PLUS;
     list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(OPERATOR,
                                                                                                            u5);
-    Union u6;
+    Valeur u6;
     u6.real = 5;
     list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(
             REAL, u6);

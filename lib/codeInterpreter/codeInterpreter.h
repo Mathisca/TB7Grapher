@@ -4,7 +4,7 @@
 
 #include "../lib.h"
 
-double result (Entity e, double x);
+Result result (Entity e, double x);
 /**
  * @brief Calcule le f(x) du x donné en paramètre avce la focntion dans l'arbre en paramètre
  *

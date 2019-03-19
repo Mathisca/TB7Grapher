@@ -13,27 +13,27 @@ Element createElement(TOKENS token, OPERATORS operator, FUNCTIONS function, ERRO
     Element e;
     if (token == OPERATOR) {
         e.token = OPERATOR;
-        Union u;
+        Valeur u;
         u.operators = operator;
         e.value = u;
     } else if (token == FUNCTION) {
         e.token = FUNCTION;
-        Union u;
+        Valeur u;
         u.functions = function;
         e.value = u;
     } else if (token == ERROR) {
         e.token = ERROR;
-        Union u;
+        Valeur u;
         u.error = error;
         e.value = u;
     } else if (token == REAL) {
         e.token = REAL;
-        Union u;
+        Valeur u;
         u.real = value;
         e.value = u;
     } else {
         e.token = token;
-        Union u;
+        Valeur u;
         e.value = u;
     }
     return e;

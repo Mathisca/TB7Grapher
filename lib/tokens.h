@@ -34,6 +34,7 @@ typedef enum OPERATORS{
 } OPERATORS;
 
 typedef enum ERRORS{
+    NO_ERROR,
     DIV_BY_ZERO,
     NON_REAL_OPERATION,
     UNRECOGNIZED_CHAR,
@@ -41,17 +42,22 @@ typedef enum ERRORS{
     SYNTAX_ERROR
 } ERRORS;
 
-typedef union unionSt {
+typedef union valeurSt {
     double real;
     OPERATORS operators;
     FUNCTIONS functions;
     ERRORS error;
-} Union;
+} Valeur;
 
 typedef struct elementSt {
     TOKENS token;
-    Union value;
+    Valeur value;
 } Element;
+
+typedef struct resultSt {
+    ERRORS error;
+    Valeur value;
+} Result;
 
 typedef struct entitySt * Entity;
 
