@@ -88,6 +88,7 @@ double test_evaluation() {
     e->element.value.operators = MULTIPLY;
     e->left_operand->element.token = REAL;
     e->left_operand->element.value.real = 6;
+    e->right_operand->element.token = VARIABLE;
 
     r = result(e, 4);
     res = r.value;
