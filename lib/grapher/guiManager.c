@@ -52,7 +52,7 @@ static int createRenderer() {
     }
 
     SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    M_PI
+
     return 1;
 }
 

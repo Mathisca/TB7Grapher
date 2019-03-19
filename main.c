@@ -10,6 +10,7 @@ int main() {
 
 
     initGraphics();
+    startMainLoop();
 
     return 0;
 }
