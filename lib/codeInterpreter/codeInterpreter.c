@@ -45,7 +45,7 @@ Result result(Entity e, double x) {
                     r.value = result(e->left_operand, x).value - result(e->right_operand, x).value;
                     break;
                 case POWER:
-                    r.value = pow((result(e->left_operand, x).value), (result(e->right_operand, x).value));
+                        r.value = pow((result(e->left_operand, x).value), (result(e->right_operand, x).value));
             }
         } else if (e->element.token == FUNCTION) { //gestion des fonctions
             switch(e->element.value.functions) {
@@ -56,6 +56,9 @@ Result result(Entity e, double x) {
                     r.value = cos(result(e->left_operand, x).value);
                     break;
                 case TAN:
+                    if (e->left_operand->element.value.real == M_2_PI) {
+                        r.error = NON_REAL_OPERATION;
+                    }
                     r.value = tan(result(e->left_operand, x).value);
                     break;
                 case SINC:
@@ -79,7 +82,6 @@ Result result(Entity e, double x) {
                 case ABS:
                     r.value = fabs(result(e->left_operand, x).value);
                     break;
-
                 case EXP:
                     r.value = exp(result(e->left_operand, x).value);
                     break;
@@ -104,12 +106,12 @@ Result result(Entity e, double x) {
                 case TANH:
                     r.value = tanh(result(e->left_operand, x).value);
                     break;
-                case SQRT:
+                /*case SQRT:
                     if (e->left_operand->element.value.real < 0) {
                         r.error = NON_REAL_OPERATION;
                     }
                     r.value = sqrt(result(e->left_operand, x).value);
-                    break;
+                    break; */
                 case ARCSIN:
                     if (e->left_operand->element.value.real < -1 || e->left_operand->element.value.real > 1){
                         r.error = NON_REAL_OPERATION;
@@ -147,7 +149,7 @@ double test_evaluation() { //fonction test du programme --> création arbre
     e->left_operand = malloc(sizeof(struct entitySt));
     e->right_operand->left_operand = malloc(sizeof(struct entitySt));
     e->left_operand->left_operand= malloc(sizeof(struct entitySt));
-    e->element.token = OPERATOR;
+   e->element.token = OPERATOR;
     e->element.value.operators = MULTIPLY;
     e->right_operand->element.token = FUNCTION;
     e->right_operand->element.value.functions = LN;

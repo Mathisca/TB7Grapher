@@ -1,7 +1,7 @@
 #include "../tokens.h"
 
-#ifndef TB7GRAPHER_LEXICALANALYSER_H
-#define TB7GRAPHER_LEXICALANALYSER_H
+//#ifndef TB7GRAPHER_LEXICALANALYSER_H
+//#define TB7GRAPHER_LEXICALANALYSER_H
 
 /* brief = fonction qui reconnait le lexème des enum OPERATORS
  *
@@ -9,6 +9,6 @@
  * param1 = char* saisie de l'utilisateur
  * param2 =
  */
- Element RecognizeLexemOperators(char saisieuser);
+ //Element RecognizeLexemOperators(char saisieuser);
 
-#endif
+//#endif
