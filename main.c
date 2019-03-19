@@ -1,8 +1,7 @@
 #include "main.h"
 
 int main() {
-    log_info("test");
-    printf("Hello"); // c'est inutile
-    printf("Bonjour");
+    log_info("Hello, world");
+
     return 0;
 }

@@ -13,4 +13,6 @@
 #include "lexicalAnalyser/lexicalAnalyser.h"
 #include "syntaxAnalyser/syntaxAnalyser.h"
 
+#include "../test/test.h"
+
 #endif //TB7GRAPHER_LIB_H
