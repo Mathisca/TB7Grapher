@@ -6,4 +6,9 @@
 Entity syntaxBuild(ElementList);
 
 ERRORS syntaxChecker(ElementList list);
+
+Entity createEntity(Element);
+
+Entity createTree(ElementList);
+
 #endif //TB7GRAPHER_SYNTAXANALYSER_H

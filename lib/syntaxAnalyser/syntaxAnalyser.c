@@ -1,8 +1,177 @@
 #include "syntaxAnalyser.h"
 
 Entity syntaxBuild(ElementList list) {
+    ERRORS error = syntaxChecker(list);
+    if (error == NO_ERROR) {
+        ElementList first_elmt = list;
+        // no error is detected, we can proceed
+        int operator_lvl = 10000;
+        Valeur operator;
+        int actual_level = 0;
+        int level_to_break;
+        int in_function = 0;
+        int operator_position = 0;
+        int i = 0;
+        while (list != NULL) {
+            if (list->element.token == FUNCTION) {
+                level_to_break = actual_level;
+                in_function = 1;
+            }
+            if (list->element.token == PAR_OPN) {
+                actual_level++;
+            } else if (list->element.token == PAR_CLS) {
+                actual_level--;
+                if (level_to_break == actual_level) {
+                    in_function = 0;
+                }
+            }
+            if (!in_function) {
+                if (list->element.token == OPERATOR) {
+                    if (actual_level < operator_lvl) {
+                        operator = list->element.value;
+                        operator_lvl = actual_level;
+                        operator_position = i;
+                    }
+                }
+            }
+            list = list->nextElement;
+            i++;
+        }
+        if (operator_lvl != 10000) {
+            // operator is the main aspect of the expression
+            Element main_operator;
+            main_operator.token = OPERATOR;
+            main_operator.value = operator;
+            Entity tree = createEntity(main_operator);
+
+            printf("ONLY A FUNCTION");
+
+        } else {
+            printf("ONLY A FUNCTION");
+        }
+    } else {
+        printf("SYNTAX ERROR");
+    }
+}
+
+ElementList createElementListWithPosition(ElementList list, int position0, int position1) {
 
 }
+
+Entity createTree(ElementList list) {
+    Entity tree;
+    ElementList first_elmt = list;
+
+    // no error is detected, we can proceed
+    int operator_lvl = 10000;
+    Valeur operator;
+    int actual_level = 0;
+    int level_to_break;
+    int in_function = 0;
+    int operator_position = 0;
+    int i = 0;
+    ElementList prev_elmnt = NULL;
+    while (list != NULL) {
+        if (list->element.token == FUNCTION) {
+            level_to_break = actual_level;
+            in_function = 1;
+        }
+        if (list->element.token == PAR_OPN) {
+            actual_level++;
+        } else if (list->element.token == PAR_CLS) {
+            actual_level--;
+            if (level_to_break == actual_level) {
+                in_function = 0;
+            }
+        }
+        if (!in_function) {
+            if (list->element.token == OPERATOR) {
+                if (actual_level < operator_lvl) {
+                    if (i != 0) {
+                        if (prev_elmnt != NULL && prev_elmnt->element.token != PAR_OPN) {
+                            operator = list->element.value;
+                            operator_lvl = actual_level;
+                            operator_position = i;
+                        }
+                    }
+                }
+            }
+        }
+        prev_elmnt = list;
+        list = list->nextElement;
+        i++;
+    }
+    if (operator_lvl != 10000) {
+        // operator is the main aspect of the expression
+        Element main_operator;
+        main_operator.token = OPERATOR;
+        main_operator.value = operator;
+        tree = createEntity(main_operator);
+        int j = 0;
+        if (first_elmt->element.token == PAR_OPN) {
+            first_elmt = first_elmt->nextElement;
+            operator_position--;
+        }
+        ElementList first_expression = first_elmt;
+        ElementList second_expression;
+        ElementList prev_elmnt;
+
+        list = first_expression;
+        prev_elmnt = list;
+        while (list != NULL) {
+            if (j == operator_position) {
+                second_expression = list->nextElement;
+                prev_elmnt->nextElement = NULL;
+                break;
+            }
+            j++;
+            prev_elmnt = list;
+            list = list->nextElement;
+        }
+        list = second_expression;
+        while (list != NULL) {
+            if (list->nextElement != NULL) {
+                if (list->nextElement->nextElement != NULL) {
+
+                }
+                if (list->nextElement->element.token == PAR_CLS) {
+                    list->nextElement = NULL;
+                }
+            }
+            list = list->nextElement;
+        }
+        tree->left_operand = createTree(second_expression);
+        tree->right_operand = createTree(first_expression);
+    } else {
+        if (first_elmt->element.token == VARIABLE) {
+            tree = createEntity(first_elmt->element);
+        } else if (first_elmt->element.token == REAL) {
+            tree = createEntity(first_elmt->element);
+        } else if (first_elmt->element.token == FUNCTION) {
+            tree = createEntity(first_elmt->element);
+            tree->left_operand = createTree(first_elmt->nextElement);
+        } else if (first_elmt->element.token == OPERATOR) {
+            Element multiply;
+            multiply.token = OPERATOR;
+            Valeur multiply_u;
+            multiply_u.operators = MULTIPLY;
+            multiply.value = multiply_u;
+            tree = createEntity(multiply);
+            if (first_elmt->element.value.operators == MINUS) {
+                Valeur u;
+                u.real = -1.0f;
+                Element e;
+                e.token = REAL;
+                e.value = u;
+                tree->left_operand = createEntity(e);
+                tree->right_operand = createTree(first_elmt->nextElement);
+            }
+        }
+    }
+    return tree;
+}
+
+
 
 ERRORS syntaxChecker(ElementList list) {
     ElementList firstElement = list;
