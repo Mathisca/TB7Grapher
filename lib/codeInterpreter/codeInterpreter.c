@@ -7,7 +7,7 @@ Result result(Entity e, double x) {
     r.value = 0;
     r.error = NO_ERROR;
 
-    if (e == NULL /*|| e->element.token == ERROR*/) {
+    if (e == NULL || e->element.token == ERROR) {
         r.error = NO_INPUT;
         return r;
     } else {
@@ -165,7 +165,7 @@ double test_evaluation() {
     e->right_operand->left_operand->right_operand=NULL;
     e->right_operand->left_operand->left_operand=NULL;
 
-    r = result(e, -1);
+    r = result(e, 2);
     res = r.value;
     return res;
 }
