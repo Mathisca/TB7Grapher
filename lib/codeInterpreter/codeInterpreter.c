@@ -1,14 +1,14 @@
 #include "codeInterpreter.h"
 
 
-float result (Entity e, float x){
-    char * fonction = NULL;
-    float fx = 0;
+double result (Entity e, double x){
+ //   char * fonction = NULL;
+    double fx = 0;
 if (e == NULL){
     return 0;
 } else {
-    if (e->token == VARIABLE){
-        e->value =x;
+    if (e->element.token == VARIABLE){
+        e->element->value =x;
     }
     if (e->left_operand !=NULL){
         fx = result(e->left_operand,x);

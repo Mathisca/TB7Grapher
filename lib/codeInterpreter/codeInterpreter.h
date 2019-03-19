@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-float result (Entity e, float x);
+double result (Entity e, double x);
 /**
  * @brief Calcule le f(x) du x donné en paramètre avce la focntion dans l'arbre en paramètre
  *
