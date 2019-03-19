@@ -10,3 +10,5 @@
  * param2 =
  */
  Element RecognizeLexemOperators(char saisieuser);
+
+#endif
