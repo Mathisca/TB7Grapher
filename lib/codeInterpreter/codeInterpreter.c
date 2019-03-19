@@ -85,7 +85,9 @@ double test_evaluation (){
     Entity e = malloc(sizeof(struct entitySt *));
     e->right_operand = malloc(sizeof(struct entitySt *));
     e->left_operand = malloc(sizeof(struct entitySt *));
+    e->element.token = OPERATOR;
     e->element.value.operators = MULTIPLY;
+    e->left_operand->element.token = REAL;
     e->left_operand->element.value.real = 6;
     e->left_operand->element.value.real = VARIABLE;
 
