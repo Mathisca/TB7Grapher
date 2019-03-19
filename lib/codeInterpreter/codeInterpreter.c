@@ -149,9 +149,11 @@ double test_evaluation() {
     e->left_operand = malloc(sizeof(struct entitySt));
     e->element.token = OPERATOR;
     e->element.value.operators = MULTIPLY;
+    e->right_operand->element.token = FUNCTION;
+    e->right_operand->element.value.functions = SIN;
+    e->right_operand->left_operand->element.token = VARIABLE;
     e->left_operand->element.token = REAL;
-    e->left_operand->element.value.real = 6;
-    e->right_operand->element.token = VARIABLE;
+    e->left_operand->element.value.real = 2;
 
     r = result(e, 4);
     res = r.value;
