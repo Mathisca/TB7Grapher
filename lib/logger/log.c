@@ -20,7 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-/*
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -92,18 +92,18 @@ void log_log(int level, const char *file, int line, const char *fmt, ...) {
     if (level < L.level) {
         return;
     }
-*/
+
     /* Acquire lock */
-   // lock();
+    lock();
 
     /* Get current time */
-/*
+
 time_t t = time(NULL);
 struct tm *lt = localtime(&t);
 
-*/
+
 /* Log to stderr */
-/*
+
     if (!L.quiet) {
         va_list args;
         char buf[16];
@@ -121,9 +121,9 @@ struct tm *lt = localtime(&t);
         fprintf(stderr, "\n");
         fflush(stderr);
     }
-*/
+
     /* Log to file */
-/*
+
     if (L.fp) {
         va_list args;
         char buf[32];
@@ -139,5 +139,3 @@ struct tm *lt = localtime(&t);
     // Release lock
    unlock();
 }
- */
-

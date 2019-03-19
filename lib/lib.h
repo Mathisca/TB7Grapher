@@ -5,11 +5,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#include <SDL2/SDL.h>
 #include "tokens.h"
 #include "logger/log.h"
 
 #include "codeInterpreter/codeInterpreter.h"
 #include "grapher/grapher.h"
+#include "grapher/guiManager.h"
 #include "lexicalAnalyser/lexicalAnalyser.h"
 #include "syntaxAnalyser/syntaxAnalyser.h"
 
