@@ -1,6 +1,5 @@
 #include "guiManager.h"
 
-static SDL_Window *gWindow;
 static SDL_Renderer *gRenderer = NULL;
 
 
@@ -57,8 +56,7 @@ static int createRenderer() {
         log_error("Impossible de créer le renderer : %s\n", SDL_GetError());
         return 0;
     }
-
-    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_SetRenderDrawBlendMode(getRenderer(), SDL_BLENDMODE_BLEND);
 
     return 1;
 }

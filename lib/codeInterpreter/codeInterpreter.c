@@ -165,7 +165,7 @@ double test_evaluation() { //fonction test du programme --> création arbre
     e->right_operand->left_operand->right_operand=NULL;
     e->right_operand->left_operand->left_operand=NULL;
 
-    r = result(e, 6);
+    r = result(e, 0.5);
     res = r.value;
     return res;
 }

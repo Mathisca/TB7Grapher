@@ -15,4 +15,6 @@ static void processMouseMotion(SDL_MouseMotionEvent key);
 
 static void processMousePress(SDL_MouseButtonEvent key);
 
+void processMouseWheel(SDL_MouseWheelEvent event);
+
 #endif //TB7GRAPHER_INPUTHANDLER_H

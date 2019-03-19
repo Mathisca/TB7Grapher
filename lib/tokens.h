@@ -80,7 +80,7 @@ struct entitySt {
 };
 
 typedef struct pointSt * Point;
-struct pointST {
+struct pointSt {
     double x;
     double y;
 
