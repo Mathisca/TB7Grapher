@@ -7,7 +7,7 @@ Result result(Entity e, double x) {
     r.value = 0;
     r.error = NO_ERROR;
 
-    if (e == NULL || e->element.token == ERROR) {
+    if (e == NULL /*|| e->element.token == ERROR*/) {
         r.error = NO_INPUT;
         return r;
     } else {
@@ -147,13 +147,21 @@ double test_evaluation() {
     Entity e = malloc(sizeof(struct entitySt));
     e->right_operand = malloc(sizeof(struct entitySt));
     e->left_operand = malloc(sizeof(struct entitySt));
+    e->right_operand->left_operand = malloc(sizeof(struct entitySt));
     e->element.token = OPERATOR;
     e->element.value.operators = MULTIPLY;
     e->right_operand->element.token = FUNCTION;
-    e->right_operand->element.value.functions = SIN;
+    e->right_operand->element.value.functions = SQRT;
     e->right_operand->left_operand->element.token = VARIABLE;
     e->left_operand->element.token = REAL;
     e->left_operand->element.value.real = 2;
+    e->left_operand->right_operand = NULL;
+    e->left_operand->left_operand=NULL;
+    e->right_operand->right_operand=NULL;
+    e->right_operand->left_operand->right_operand=NULL;
+    e->right_operand->left_operand->left_operand=NULL;
+
+
 
     r = result(e, 4);
     res = r.value;

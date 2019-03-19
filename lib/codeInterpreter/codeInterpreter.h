@@ -1,4 +1,5 @@
 #ifndef TB7GRAPHER_CODEINTERPRETER_H
+
 #define TB7GRAPHER_CODEINTERPRETER_H
 
 
@@ -18,7 +19,5 @@ Result result (Entity e, double x);
  */
 
 double test_evaluation ();
-
-
 
 #endif //TB7GRAPHER_CODEINTERPRETER_H

@@ -1,6 +1,6 @@
 #include "../tokens.h"
 
-//#ifndef TB7GRAPHER_LEXICALANALYSER_H
+#ifndef TB7GRAPHER_LEXICALANALYSER_H
 #define TB7GRAPHER_LEXICALANALYSER_H
 
 /* brief = fonction qui reconnait le lexème des enum OPERATORS
