@@ -5,7 +5,6 @@ int main() {
  //   testGraph();
   //  testSyntax();
   double res = test_evaluation();
-  printf("test");
   printf("%lf", res );
     return 0;
 }
