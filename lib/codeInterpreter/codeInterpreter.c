@@ -44,6 +44,19 @@ Result result(Entity e, double x) {
                 fx = pow((result(e->left_operand, x).value), (result(e->right_operand, x).value));
             }
         } else if (e->element.token == FUNCTION) {
+            switch(e->element.value.functions) {
+                case SIN:
+                    fx = sin(result(e->left_operand, x).value);
+                    break;
+                case COS:
+                    fx = cos(result(e->left_operand, x).value);
+                    break;
+                default:
+                    // else
+                    break;
+            }
+
+
             if (e->element.value.operators == SIN) {
                 fx = sin(result(e->left_operand, x).value);
             } else if (e->element.value.operators == COS) {
