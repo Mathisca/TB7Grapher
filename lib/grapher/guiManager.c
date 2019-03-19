@@ -12,7 +12,14 @@ static int initSDL() {
         log_error("Impossible de charger SDL : %s", SDL_GetError());
         return 0;
     }
-
+    if (TTF_Init() < 0) {
+        //printf(KRED "Impossible de charger l'extension TTF : %s" KRESET, TTF_GetError());
+        return 0;
+    }
+    if (IMG_Init(IMG_INIT_PNG) < 0) {
+       // printf(KRED "Impossible de charger l'extension IMG : %s" KRESET, IMG_GetError());
+        return 0;
+    }
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 

@@ -16,6 +16,7 @@ void processEvents() {
                 break;
             case SDL_MOUSEBUTTONUP:
                 processMousePress(event.button);
+                break;
             default:
                 break;
         }
