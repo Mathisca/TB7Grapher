@@ -1,8 +1,4 @@
 #include "test.h"
-//#include "SDL.h"
-
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
 
 void testGraph() {
 //    SDL_Window* window = NULL;
@@ -108,13 +104,18 @@ ElementList createMockListTrue1() {
     list->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(PAR_CLS, u1);
     Valeur u2;
     u2.operators = PLUS;
-    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(OPERATOR, u2);
-    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(REAL, u1);
-    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(PAR_CLS, u1);
+    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(OPERATOR,
+                                                                                                           u2);
+    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(
+            REAL, u1);
+    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(
+            PAR_CLS, u1);
 
-    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(OPERATOR, u3);
-    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement= createMockElement(REAL, u1);
-    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement= NULL;
+    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(
+            OPERATOR, u3);
+    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(
+            REAL, u1);
+    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = NULL;
     return list;
 }
 
@@ -138,13 +139,14 @@ ElementList createMockListTrue2() {
     Valeur u5;
     u5.real = 1.0f;
     list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(REAL, u5);
-    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(PAR_CLS, u5);
+    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(
+            PAR_CLS, u5);
     list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = NULL;
     return list;
 }
 
 ElementList createMockListTrue3() {
-    ElementList  list;
+    ElementList list;
     Valeur u1;
     u1.operators = MINUS;
     list = createMockElement(OPERATOR, u1);
@@ -160,13 +162,16 @@ ElementList createMockListTrue3() {
     Valeur u4;
     u4.real = 2.5f;
     list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(REAL, u4);
-    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(PAR_CLS, u4);
+    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(
+            PAR_CLS, u4);
     Valeur u5;
     u5.operators = MULTIPLY;
-    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(OPERATOR, u5);
+    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(
+            OPERATOR, u5);
     Valeur u6;
     u6.real = 1.45f;
-    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(REAL, u6);
+    list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(
+            REAL, u6);
     list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = NULL;
     return list;
 }
@@ -192,6 +197,7 @@ ElementList createMockListTrue5() {
     list->nextElement->nextElement->nextElement = NULL;
     return list;
 }
+
 ElementList createMockListFalse1() {
     //*5x
     Valeur u1;

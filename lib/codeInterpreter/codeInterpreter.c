@@ -28,7 +28,7 @@ Result result(Entity e, double x) {
         }
 
         if (e->element.token == OPERATOR) { //gestion des opérations (*, /, +, -)
-            switch(e->element.value.operators) {
+            switch (e->element.value.operators) {
                 case MULTIPLY:
                     r.value = result(e->left_operand, x).value * result(e->right_operand, x).value;
                     break;
@@ -45,10 +45,10 @@ Result result(Entity e, double x) {
                     r.value = result(e->left_operand, x).value - result(e->right_operand, x).value;
                     break;
                 case POWER:
-                        r.value = pow((result(e->left_operand, x).value), (result(e->right_operand, x).value));
+                    r.value = pow((result(e->left_operand, x).value), (result(e->right_operand, x).value));
             }
         } else if (e->element.token == FUNCTION) { //gestion des fonctions
-            switch(e->element.value.functions) {
+            switch (e->element.value.functions) {
                 case SIN:
                     r.value = sin(result(e->left_operand, x).value);
                     break;
@@ -56,7 +56,7 @@ Result result(Entity e, double x) {
                     r.value = cos(result(e->left_operand, x).value);
                     break;
                 case TAN:
-                    if (e->left_operand->element.value.real == M_2_PI ) {
+                    if (e->left_operand->element.value.real == M_2_PI) {
                         r.error = NON_REAL_OPERATION;
                     }
                     r.value = tan(result(e->left_operand, x).value);
@@ -106,26 +106,26 @@ Result result(Entity e, double x) {
                 case TANH:
                     r.value = tanh(result(e->left_operand, x).value);
                     break;
-                /*case SQRT:
-                    if (e->left_operand->element.value.real < 0) {
-                        r.error = NON_REAL_OPERATION;
-                    }
-                    r.value = sqrt(result(e->left_operand, x).value);
-                    break; */
+                    /*case SQRT:
+                        if (e->left_operand->element.value.real < 0) {
+                            r.error = NON_REAL_OPERATION;
+                        }
+                        r.value = sqrt(result(e->left_operand, x).value);
+                        break; */
                 case ARCSIN:
-                    if (e->left_operand->element.value.real < -1 || e->left_operand->element.value.real > 1){
+                    if (e->left_operand->element.value.real < -1 || e->left_operand->element.value.real > 1) {
                         r.error = NON_REAL_OPERATION;
                     }
                     r.value = asin(result(e->left_operand, x).value);
                     break;
                 case ARCCOS:
-                    if (e->left_operand->element.value.real < -1 || e->left_operand->element.value.real > 1){
+                    if (e->left_operand->element.value.real < -1 || e->left_operand->element.value.real > 1) {
                         r.error = NON_REAL_OPERATION;
                     }
                     r.value = acos(result(e->left_operand, x).value);
                     break;
                 case ARCTAN:
-                    if (e->left_operand->element.value.real < -1 || e->left_operand->element.value.real > 1){
+                    if (e->left_operand->element.value.real < -1 || e->left_operand->element.value.real > 1) {
                         r.error = NON_REAL_OPERATION;
                     }
                     r.value = atan(result(e->left_operand, x).value);
@@ -148,22 +148,22 @@ double test_evaluation() { //fonction test du programme --> création arbre
     e->right_operand = malloc(sizeof(struct entitySt));
     e->left_operand = malloc(sizeof(struct entitySt));
     e->right_operand->left_operand = malloc(sizeof(struct entitySt));
-    e->left_operand->left_operand= malloc(sizeof(struct entitySt));
-   e->element.token = OPERATOR;
+    e->left_operand->left_operand = malloc(sizeof(struct entitySt));
+    e->element.token = OPERATOR;
     e->element.value.operators = MULTIPLY;
     e->right_operand->element.token = FUNCTION;
     e->right_operand->element.value.functions = LN;
     e->right_operand->left_operand->element.token = VARIABLE;
     e->left_operand->element.token = FUNCTION;
     e->left_operand->element.value.functions = SIN;
-    e->left_operand->left_operand->element.token=REAL;
+    e->left_operand->left_operand->element.token = REAL;
     e->left_operand->left_operand->element.value.real = 9;
     e->left_operand->right_operand = NULL;
-    e->left_operand->left_operand->left_operand=NULL;
-    e->left_operand->left_operand->right_operand=NULL;
-    e->right_operand->right_operand=NULL;
-    e->right_operand->left_operand->right_operand=NULL;
-    e->right_operand->left_operand->left_operand=NULL;
+    e->left_operand->left_operand->left_operand = NULL;
+    e->left_operand->left_operand->right_operand = NULL;
+    e->right_operand->right_operand = NULL;
+    e->right_operand->left_operand->right_operand = NULL;
+    e->right_operand->left_operand->left_operand = NULL;
 
     r = result(e, 0.5);
     res = r.value;

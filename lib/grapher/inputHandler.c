@@ -1,4 +1,3 @@
-
 #include "inputHandler.h"
 
 char *text = NULL;
@@ -41,7 +40,7 @@ void processEvents() {
 }
 
 void processMouseWheel(SDL_MouseWheelEvent event) {
-    if(event.y == -1) { // molette bas
+    if (event.y == -1) { // molette bas
         increaseYSpan(10);
         increaseXSpan(10);
     } else {

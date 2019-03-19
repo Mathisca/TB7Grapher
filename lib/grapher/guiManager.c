@@ -16,7 +16,7 @@ static int initSDL() {
         return 0;
     }
     if (IMG_Init(IMG_INIT_PNG) < 0) {
-       // printf(KRED "Impossible de charger l'extension IMG : %s" KRESET, IMG_GetError());
+        // printf(KRED "Impossible de charger l'extension IMG : %s" KRESET, IMG_GetError());
         return 0;
     }
 

@@ -9,6 +9,6 @@
  * param1 = char* saisie de l'utilisateur
  * param2 =
  */
- //Element RecognizeLexemOperators(char saisieuser);
+//Element RecognizeLexemOperators(char saisieuser);
 
 //#endif

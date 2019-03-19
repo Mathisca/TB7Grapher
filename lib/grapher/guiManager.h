@@ -6,6 +6,7 @@
 #define TB7GRAPHER_GUIMANAGER_H
 
 #include "../lib.h"
+
 SDL_Window *gWindow;
 
 static int initSDL();

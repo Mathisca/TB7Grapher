@@ -172,7 +172,6 @@ Entity createTree(ElementList list) {
 }
 
 
-
 ERRORS syntaxChecker(ElementList list) {
     ElementList firstElement = list;
     int opened_par = 0;

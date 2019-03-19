@@ -84,7 +84,7 @@ int nbGrad = 10;
 
 
 void reduceYSpan(int mod) {
-    if(spanY - mod > 0)
+    if (spanY - mod > 0)
         spanY = spanY - mod;
 }
 
@@ -94,7 +94,7 @@ void increaseYSpan(int mod) {
 }
 
 void reduceXSpan(int mod) {
-    if(spanX - mod > 0)
+    if (spanX - mod > 0)
         spanX -= mod;
 }
 
@@ -103,7 +103,7 @@ void increaseXSpan(int mod) {
 }
 
 void nbGradChange(int mod) {
-    if(nbGrad + mod > 0)
+    if (nbGrad + mod > 0)
         nbGrad += mod;
 }
 
@@ -152,7 +152,7 @@ void render() {
 
         makeText(grad, positionW + gradSizeW, height / 2 + gradSizeH, 20, 20);
 
-        sprintf(grad, "%.1lf",  ((-1.0 * i / nbGrad) * spanY) + spanY / 2);
+        sprintf(grad, "%.1lf", ((-1.0 * i / nbGrad) * spanY) + spanY / 2);
 
         makeText(grad, graphMidX + gradSizeW, positionH + gradSizeH, 20, 20);
 
