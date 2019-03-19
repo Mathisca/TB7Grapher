@@ -80,12 +80,7 @@ Result result(Entity e, double x) {
                 case ABS:
                     fx = fabs(result(e->left_operand, x).value);
                     break;
-                case SQRT:
-                    if (e->left_operand->element.value.real < 0) {
-                        r.error = NON_REAL_OPERATION;
-                    }
-                    fx = sqrt(result(e->left_operand, x).value);
-                    break;
+
                 case EXP:
                     fx = exp(result(e->left_operand, x).value);
                     break;
@@ -100,6 +95,39 @@ Result result(Entity e, double x) {
                         r.error = NON_REAL_OPERATION;
                     }
                     fx = log(result(e->left_operand, x).value);
+                    break;
+                case SINH:
+                    fx = sinh(result(e->left_operand, x).value);
+                    break;
+                case COSH:
+                    fx = cosh(result(e->left_operand, x).value);
+                    break;
+                case TANH:
+                    fx = tanh(result(e->left_operand, x).value);
+                    break;
+                case SQRT:
+                    if (e->left_operand->element.value.real < 0) {
+                        r.error = NON_REAL_OPERATION;
+                    }
+                    fx = sqrt(result(e->left_operand, x).value);
+                    break;
+                case ARCSIN:
+                    if (e->left_operand->element.value.real < -1 || e->left_operand->element.value.real > 1){
+                        r.error = NON_REAL_OPERATION;
+                    }
+                    fx = asin(result(e->left_operand, x).value);
+                    break;
+                case ARCCOS:
+                    if (e->left_operand->element.value.real < -1 || e->left_operand->element.value.real > 1){
+                        r.error = NON_REAL_OPERATION;
+                    }
+                    fx = acos(result(e->left_operand, x).value);
+                    break;
+                case ARCTAN:
+                    if (e->left_operand->element.value.real < -1 || e->left_operand->element.value.real > 1){
+                        r.error = NON_REAL_OPERATION;
+                    }
+                    fx = atan(result(e->left_operand, x).value);
                     break;
                 default:
                     fx = 0;

@@ -1,3 +1,4 @@
+/*
 #include "test.h"
 //#include "SDL.h"
 
@@ -183,4 +184,5 @@ ElementList createMockListFalse6() {
     list->nextElement->nextElement->nextElement->nextElement = NULL;
     return list;
 }
+ */
 
