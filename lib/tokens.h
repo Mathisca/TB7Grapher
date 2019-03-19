@@ -34,6 +34,7 @@ typedef enum OPERATORS{
 } OPERATORS;
 
 typedef enum ERRORS{
+    NO_INPUT,
     NO_ERROR,
     DIV_BY_ZERO,
     NON_REAL_OPERATION,
