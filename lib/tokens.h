@@ -56,7 +56,7 @@ typedef struct elementSt {
 
 typedef struct resultSt {
     ERRORS error;
-    Valeur value;
+    double value;
 } Result;
 
 typedef struct entitySt * Entity;
