@@ -7,10 +7,22 @@ void testGraph();
 
 void testSyntax();
 
+ElementList createMockListTrue();
+
+ElementList createMockListFalse1();
+
+ElementList createMockListFalse2();
+
+ElementList createMockListFalse3();
+
+ElementList createMockListFalse4();
+
+ElementList createMockListFalse5();
+
+ElementList createMockListFalse6();
+
 void testAnalyst();
 
 void testInterpreter();
-
-ElementList createMockList();
 
 #endif //TB7GRAPHER_TEST_H

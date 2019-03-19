@@ -40,7 +40,8 @@ typedef enum ERRORS{
     NON_REAL_OPERATION,
     UNRECOGNIZED_CHAR,
     UNRECOGNIZED_FUNCTION,
-    SYNTAX_ERROR
+    SYNTAX_ERROR,
+    PAR_ERROR
 } ERRORS;
 
 typedef union valeurSt {
