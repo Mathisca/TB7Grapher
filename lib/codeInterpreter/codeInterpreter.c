@@ -56,7 +56,7 @@ Result result(Entity e, double x) {
                     r.value = cos(result(e->left_operand, x).value);
                     break;
                 case TAN:
-                    if (e->left_operand->element.value.real == M_2_PI) {
+                    if (e->left_operand->element.value.real == M_2_PI ) {
                         r.error = NON_REAL_OPERATION;
                     }
                     r.value = tan(result(e->left_operand, x).value);
