@@ -90,7 +90,7 @@ double test_evaluation (){
     e->left_operand->element.token = REAL;
     e->left_operand->element.value.real = 6;
     e->left_operand->element.value.real = VARIABLE;
-
+    r.error = NO_ERROR;
     r = result(e, 4);
     res = r.value;
     return res;
