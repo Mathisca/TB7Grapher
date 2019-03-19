@@ -11,4 +11,6 @@ void testAnalyst();
 
 void testInterpreter();
 
+ElementList createMockList();
+
 #endif //TB7GRAPHER_TEST_H
