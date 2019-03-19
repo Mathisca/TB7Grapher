@@ -27,6 +27,9 @@ ElementList createMockListTrue2();
 
 ElementList createMockListTrue3();
 
+ElementList createMockListTrue4();
+
+ElementList createMockListTrue5();
 void testAnalyst();
 
 void testInterpreter();

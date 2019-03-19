@@ -1,4 +1,3 @@
-/*
 #include "test.h"
 //#include "SDL.h"
 
@@ -40,7 +39,7 @@ void testSyntax() {
     ERRORS err5 = syntaxChecker(createMockListFalse5());
     ERRORS err6 = syntaxChecker(createMockListFalse6());
 //    syntaxBuild(list);
-    ElementList list2 = createMockListTrue3();
+    ElementList list2 = createMockListTrue4();
     Entity tree = createTree(list2);
     return;
 }
@@ -95,6 +94,7 @@ ElementList createMockListTrue() {
 }
 
 ElementList createMockListTrue1() {
+    // (3*x)+3)*3
     ElementList list;
     Valeur u1;
     u1.real = 3.0f;
@@ -119,6 +119,7 @@ ElementList createMockListTrue1() {
 }
 
 ElementList createMockListTrue2() {
+    // -tan(-x+2.5)*1.45
     ElementList list;
     Valeur u1;
     u1.real = 5.0f;
@@ -167,6 +168,28 @@ ElementList createMockListTrue3() {
     u6.real = 1.45f;
     list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = createMockElement(REAL, u6);
     list->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement->nextElement = NULL;
+    return list;
+}
+
+ElementList createMockListTrue4() {
+    ElementList list;
+    Valeur u1;
+    u1.real = 2.415;
+    list = createMockElement(REAL, u1);
+    list->nextElement = NULL;
+    return list;
+}
+
+ElementList createMockListTrue5() {
+    ElementList list;
+    Valeur u1;
+    u1.real = 2.0f;
+    list = createMockElement(REAL, u1);
+    Valeur u2;
+    u2.operators = MULTIPLY;
+    list->nextElement = createMockElement(OPERATOR, u2);
+    list->nextElement->nextElement = createMockElement(VARIABLE, u1);
+    list->nextElement->nextElement->nextElement = NULL;
     return list;
 }
 ElementList createMockListFalse1() {
@@ -262,5 +285,3 @@ ElementList createMockListFalse6() {
     list->nextElement->nextElement->nextElement->nextElement = NULL;
     return list;
 }
- */
-
