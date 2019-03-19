@@ -2,10 +2,7 @@
 #define TB7GRAPHER_CODEINTERPRETER_H
 
 
-#include "../tokens.h"
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "../lib.h"
 
 double result (Entity e, double x);
 /**
