@@ -165,9 +165,7 @@ double test_evaluation() {
     e->right_operand->left_operand->right_operand=NULL;
     e->right_operand->left_operand->left_operand=NULL;
 
-
-
-    r = result(e, 2);
+    r = result(e, -1);
     res = r.value;
     return res;
 }
