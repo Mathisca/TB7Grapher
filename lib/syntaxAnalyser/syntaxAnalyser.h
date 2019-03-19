@@ -5,4 +5,5 @@
 
 Entity syntaxBuild(ElementList);
 
+ERRORS syntaxChecker(ElementList list);
 #endif //TB7GRAPHER_SYNTAXANALYSER_H
