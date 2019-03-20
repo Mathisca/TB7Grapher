@@ -10,7 +10,6 @@
 
 #include "../lib.h"
 
-Result result (Entity e, double x);
 /**
  * @brief Calcule le f(x) du x donné en paramètre avce la focntion dans l'arbre en paramètre
  *
@@ -22,8 +21,8 @@ Result result (Entity e, double x);
  * @post le calcul est valide
  * @invariant //
  */
+Result result (Entity e, double x);
 
-double test_evaluation ();
 /**
  * @brief Teste la fonction principale en créant un arbre comportant une fonction, appel de la fonction result pour obtenir f(x)
  *
@@ -33,5 +32,7 @@ double test_evaluation ();
  * @post l'abre est crée et la fonction renvoie le résultat du calcul
  * @invariant //
  */
+double test_evaluation ();
+
 
 #endif //TB7GRAPHER_CODEINTERPRETER_H

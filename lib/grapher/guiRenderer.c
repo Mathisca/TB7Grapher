@@ -7,24 +7,24 @@ double gSpanX = 10.0;
 double gSpanY = 10.0;
 int gNbGrad = 10;
 
-void startMainLoop() {
-
-    gFont = TTF_OpenFont("fonts/opensans.ttf", 100);
-    if (gFont == NULL) {
-        log_fatal("Font error : %s", TTF_GetError());
-        exit(1);
-    }
-
-    addEntity(syntaxBuild(createMockListTrue()), "sin((2*x)+5)");
-    addEntity(syntaxBuild(createMockListTrue3()), "-tan(-x+2.5)*1.45");
-    addEntity(syntaxBuild(createMockListTrue6()), "tanh(x)");
+void * startMainLoop() {
+    loadResources();
 
     while (!SDL_QuitRequested()) {
         processEvents();
         render();
     }
+
+    freeGraphics();
 }
 
+static void loadResources() {
+    gFont = TTF_OpenFont("fonts/opensans.ttf", 100);
+    if (gFont == NULL) {
+        log_fatal("Font error : %s", TTF_GetError());
+        exit(1);
+    }
+}
 
 void addEntity(Entity e, char *fct) {
     ValueArray newArray = malloc(sizeof(struct valueArraySt));
@@ -227,30 +227,6 @@ void render() {
 
     }
 
-    /*
-    if (mouseX >= graphBeginX) {
-        double mathMouseX = ((mouseX - graphBeginX) * gSpanX) / graphWidth - gSpanX / 2.0;
-
-        Result r = result(function, mathMouseX);
-
-        SDL_SetRenderDrawColor(getRenderer(), 0, 0, 0, 0xFF);
-
-        if (r.error == NO_ERROR && !isnan(r.value)) {
-            int realFunctionY = (int) (height / 2 - ((r.value * height) / (gSpanY)));
-
-            char *str = malloc(sizeof(char) * 100);
-            sprintf(str, "[%lf, %lf]", mathMouseX, r.value);
-            makeText(str, mouseX + width / 100, realFunctionY + height / 100, width / 15, width / 60);
-            free(str);
-
-
-            SDL_RenderDrawLine(getRenderer(), mouseX, realFunctionY, mouseX, height / 2);
-
-            SDL_RenderDrawLine(getRenderer(), mouseX, realFunctionY, (int) (graphBeginX + graphWidth / 2),
-                               realFunctionY);
-        }
-    }
-*/
     SDL_RenderPresent(getRenderer());
 
 

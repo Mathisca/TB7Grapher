@@ -1,10 +1,28 @@
+#include <pthread.h>
 #include "guiManager.h"
 
 static SDL_Renderer *gRenderer = NULL;
 
 void startUserInterface() {
     initGraphics();
-    startMainLoop();
+
+    pthread_t thread1;
+    pthread_create(&thread1, NULL, startMainLoop, NULL);
+
+    SDL_Delay(1000);
+    addEntity(syntaxBuild(createMockListTrue()), "sin((2*x)+5)");
+
+    SDL_Delay(1000);
+    addEntity(syntaxBuild(createMockListTrue3()), "-tan(-x+2.5)*1.45");
+
+    SDL_Delay(1000);
+    addEntity(syntaxBuild(createMockListTrue6()), "tanh(x)");
+
+    while(1) {
+
+
+    }
+
 }
 
 /**

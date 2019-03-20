@@ -20,6 +20,6 @@
 
      TARGET_LINK_LIBRARIES(TB7Grapher ${SDL2_LIBRARIES})
  else ()
-     target_link_libraries(TB7Grapher m)
+     target_link_libraries(TB7Grapher m )
  endif ()
 

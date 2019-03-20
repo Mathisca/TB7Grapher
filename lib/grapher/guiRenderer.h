@@ -4,13 +4,15 @@
 #include "../lib.h"
 #include "inputHandler.h"
 
-void startMainLoop();
+void * startMainLoop();
 
 void render();
 
 Point processPoints(Entity e);
 
-void addEntity(Entity e, char * fct);
+void addEntity(Entity e, char *fct);
+
+static void loadResources();
 
 void recalculateAll();
 
