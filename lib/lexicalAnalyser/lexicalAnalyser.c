@@ -287,17 +287,17 @@ ElementList RecognizeLexem(
                 } else {
                     par_e = RecognizeLexemParenthesis(e, chaine, i);
                     if (par_e != NULL) {
-                        list->nextElement = par_e;
+                        list->nextElement = par_e; // TODO sigsegv
                     } else {
                         fun_e = RecognizeLexemFunction(e, chaine, i);
                         if (fun_e != NULL) {
-                            list->nextElement = fun_e;
+                            list->nextElement = fun_e; // TODO sigsegv aussi
                         }
                     }
                 }
             }
         }
-        list = list->nextElement;
+        list = list->nextElement; // TODO sigsegv
         (*i)++;
     }
 

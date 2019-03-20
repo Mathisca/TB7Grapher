@@ -39,7 +39,7 @@ typedef enum FUNCTIONS {
 
 typedef enum OPERATORS {
     MULTIPLY,
-    DIVIDE,
+    DIVIDE, // TODO c'est inversé
     PLUS,
     MINUS,
     POWER

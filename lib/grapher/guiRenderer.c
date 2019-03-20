@@ -26,13 +26,12 @@ static void loadResources() {
     }
 }
 
-void addEntity(Entity e, char *fct) {
+void addEntity(Entity e, char *fct, SDL_Color color) {
     ValueArray newArray = malloc(sizeof(struct valueArraySt));
 
     newArray->e = e;
     newArray->p = processPoints(e);
     newArray->nextEntity = gValuesArray;
-    SDL_Color color = {(Uint8) (rand() % 255), (Uint8) (rand() % 255), (Uint8) (rand() % 255), 0xFF};
     newArray->color = color;
     newArray->printableValue = fct;
     gValuesArray = newArray;
@@ -83,7 +82,7 @@ void unzoom() {
 
 void zoom() {
     if (gSpanX == 0 || gSpanY == 0) {
-        gSpanX = 1;
+        gSpanX = 1; // TODO revoir ça
         gSpanY = 1;
     }
     gSpanY -= 10;
@@ -100,7 +99,6 @@ void nbGradChange(int mod) {
 void render() {
     int width, height;
     getWindowWidth(&width, &height);
-
 
     int graphBeginX = (int) (width / 3.0);
     double graphWidth = ((2.0 / 3.0) * width);

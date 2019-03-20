@@ -119,8 +119,8 @@ Entity createTree(ElementList list) {
         }
 
         // calling recursively this function to create the binary tree with second_expression and first_expression as parameter
-        tree->left_operand = createTree(second_expression);
-        tree->right_operand = createTree(first_expression);
+        tree->right_operand = createTree(second_expression);
+        tree->left_operand = createTree(first_expression);
     } else { // CASE 2
         // removing the first element if it's a bracket
         if (first_elmt->element.token == PAR_OPN) {
@@ -200,7 +200,7 @@ ERRORS syntaxChecker(ElementList list) {
 
     ElementList prev_elmnt; // storing the previous element during our loop
     while (list != NULL) {
-        if (list->element.token == PAR_OPN) {
+        if (list->element.token == PAR_OPN) { // TODO sigsegv
             opened_par++; // counting the opening brackets
             if (list->nextElement == NULL) { // next to an opening bracket there is no expression => SYNTAX_ERROR
                 error = SYNTAX_ERROR;
@@ -269,7 +269,7 @@ ERRORS syntaxChecker(ElementList list) {
         error = PAR_ERROR;
     }
     // at the end there is an operator, a function or an opening bracket => SYNTAX_ERROR
-    if (prev_elmnt->element.token == OPERATOR || prev_elmnt->element.token == FUNCTION ||
+    if (prev_elmnt->element.token == OPERATOR || prev_elmnt->element.token == FUNCTION || // TODO sigsev
         prev_elmnt->element.token == PAR_OPN) {
         error = SYNTAX_ERROR;
     }

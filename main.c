@@ -4,9 +4,7 @@ int main() {
     // testInterpreter();
 
     //srand(time(NULL));
-    //startUserInterface();
-
-    ElementList test = Test();
+    startUserInterface();
 
     return 0;
 }

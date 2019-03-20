@@ -10,7 +10,7 @@ void render();
 
 Point processPoints(Entity e);
 
-void addEntity(Entity e, char *fct);
+void addEntity(Entity e, char *fct, SDL_Color color);
 
 static void loadResources();
 

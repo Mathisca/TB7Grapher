@@ -9,17 +9,46 @@ void startUserInterface() {
     pthread_t thread1;
     pthread_create(&thread1, NULL, startMainLoop, NULL);
 
-    SDL_Delay(1000);
-    addEntity(syntaxBuild(createMockListTrue()), "sin((2*x)+5)");
+    while (!SDL_QuitRequested()) {
+        int select = 0;
+        int selectbis = 0;
+        int R = 255, G = 0, B = 0, A = 255;
+        printf("Bienvenue sur TB7 Plotter, que voulez-vous faire? \n");
+        printf("1. Ajouter une expression et la visualiser. \n");
+        printf("2. Supprimer une expression. \n");
+        scanf("%d", &select);
+        switch (select) {
+            case 1: {
+                printf("Veuillez entrer votre expresion et appuyer sur Entrée. \n");
 
-    SDL_Delay(1000);
-    addEntity(syntaxBuild(createMockListTrue3()), "-tan(-x+2.5)*1.45");
 
-    SDL_Delay(1000);
-    addEntity(syntaxBuild(createMockListTrue6()), "tanh(x)");
+                char *function = malloc(sizeof(char) * 100);
+                scanf("%s", function);
+                printf("Appuyez sur 1 si vous souhaitez choisir la couleur de votre courbe. \n");
+                printf("Appuyez sur 2 pour avoir la couleur par défaut. \n");
+                scanf("%d", &selectbis);
 
-    while(1) {
+                if (selectbis == 1) {
+                    printf("Entrez le code RGBA correspondant en appuyant sur Entrée entre chaque code. \n");
+                    scanf("%d %d %d %d", &R, &G, &B, &A);
+                }
 
+                SDL_Color color = {R, G, B, A};
+                ElementList list = RecognizeLexem(function);
+                Entity e = syntaxBuild(list);
+
+                printf("Erreur : %i\n", e->element.value.error);
+
+                addEntity(e, function, color);
+            }
+            case 2: {
+
+            }
+            default: {
+
+            }
+
+        }
 
     }
 
