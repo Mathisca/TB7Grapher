@@ -3,8 +3,10 @@
 int main() {
     // testInterpreter();
 
-    srand(time(NULL));
-    startUserInterface();
+    //srand(time(NULL));
+    //startUserInterface();
+
+    ElementList test = Test();
 
     return 0;
 }
