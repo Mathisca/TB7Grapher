@@ -169,6 +169,6 @@ double test_evaluation() { //test function of the program : creating a tree and 
     e->right_operand->left_operand->left_operand = NULL;
 
     r = result(e, 0.5); // calling the function that calculates f(x)
-    res = r.value; //assigning the correct value to the retruned value
+    res = r.value; //assigning the correct value to the returned value
     return res;
 }
