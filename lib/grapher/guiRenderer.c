@@ -50,11 +50,16 @@ void startMainLoop() {
 }
 
 Point p = NULL;
+double spanX = 10.0;
+double spanY = 10.0;
+
+int nbGrad = 10;
+
 
 void processPoints() {
     p = NULL;
 
-    for (double i = -100; i < 100.0; i += 0.01) {
+    for (double i = -spanX / 2.0; i < spanX / 2.0; i += spanX / 10000.0) {
         Result r = result(e, i);
 
         if (r.error == NO_ERROR) {
@@ -77,29 +82,23 @@ void processPoints() {
 
 }
 
-int spanX = 10;
-int spanY = 50;
 
-int nbGrad = 10;
+void unzoom() {
+    spanY *= 2;
+    spanX *= 2;
 
-
-void reduceYSpan(int mod) {
-    if (spanY - mod > 0)
-        spanY = spanY - mod;
+    processPoints();
 }
 
-void increaseYSpan(int mod) {
+void zoom() {
+    if(spanX == 0 || spanY == 0) {
+        spanX = 1;
+        spanY = 1;
+    }
+    spanY /= 2;
+    spanX /= 2;
 
-    spanY = spanY + mod;
-}
-
-void reduceXSpan(int mod) {
-    if (spanX - mod > 0)
-        spanX -= mod;
-}
-
-void increaseXSpan(int mod) {
-    spanX += mod;
+    processPoints();
 }
 
 void nbGradChange(int mod) {
@@ -108,6 +107,9 @@ void nbGradChange(int mod) {
 }
 
 void render() {
+    spanX += 0.05;
+    spanY += 0.05;
+    processPoints();
     int width, height;
     getWindowWidth(&width, &height);
 
@@ -170,6 +172,8 @@ void render() {
     }
 
     makeText("TB7Plotter", 30, 0, width / 3 - 60, 100);
+    makeText("x", width - width/75, height/2 + height/700, width/75, width/50);
+    makeText("f(x)", graphMidX - width/50, height/700, width/50, width/50);
 
 
     // Création du graphique
@@ -205,7 +209,7 @@ void render() {
 
             char *str = malloc(sizeof(char) * 100);
             sprintf(str, "[%lf, %lf]", mathMouseX, r.value);
-            makeText(str, mouseX, realFunctionY, 130, 30);
+            makeText(str, mouseX + width / 100, realFunctionY + height / 100, width / 15, width / 60);
             free(str);
 
 
