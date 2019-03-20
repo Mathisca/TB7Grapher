@@ -1,6 +1,7 @@
 #include "main.h"
 
 int main() {
+    testInterpreter();
    // log_info("Hello, world");
  //   testGraph();
   //  testSyntax();

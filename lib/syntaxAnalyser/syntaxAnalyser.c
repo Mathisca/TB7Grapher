@@ -122,29 +122,51 @@ Entity createTree(ElementList list) {
         tree->left_operand = createTree(second_expression);
         tree->right_operand = createTree(first_expression);
     } else { // CASE 2
-        if (first_elmt->element.token == VARIABLE) {
-            tree = createEntity(first_elmt->element);
-        } else if (first_elmt->element.token == REAL) {
-            tree = createEntity(first_elmt->element);
-        } else if (first_elmt->element.token == FUNCTION) {
-            tree = createEntity(first_elmt->element);
-            tree->left_operand = createTree(first_elmt->nextElement);
-        } else if (first_elmt->element.token == OPERATOR) {
-            Element multiply;
-            multiply.token = OPERATOR;
-            Valeur multiply_u;
-            multiply_u.operators = MULTIPLY;
-            multiply.value = multiply_u;
-            tree = createEntity(multiply);
-            if (first_elmt->element.value.operators == MINUS) {
+        // removing the first element if it's a bracket
+        if (first_elmt->element.token == PAR_OPN) {
+            first_elmt = first_elmt->nextElement;
+        }
+
+        // checking for case
+        switch (first_elmt->element.token) {
+            case VARIABLE:
+                // only creating a node with the variable element
+                tree = createEntity(first_elmt->element);
+                break;
+            case REAL:
+                // only creatng a node with a real element
+                tree = createEntity(first_elmt->element);
+                break;
+            case FUNCTION:
+                // it's a function, we're creating a node with the function element and putting the content in its left child
+                tree = createEntity(first_elmt->element);
+                tree->left_operand = createTree(first_elmt->nextElement);
+                break;
+            case OPERATOR: {
+                // for an operator we should check if it's a minus in front of a function
+                // in this case we should add a multiply node with a value of -1
+                Element multiply;
+                multiply.token = OPERATOR;
+                Valeur multiply_u;
+                multiply_u.operators = MULTIPLY;
+                multiply.value = multiply_u;
+                tree = createEntity(multiply);
                 Valeur u;
-                u.real = -1.0f;
+                switch (first_elmt->element.value.operators) {
+                    case MINUS:
+                        u.real = -1.0f;
+                        break;
+                    case PLUS:
+                        u.real = 1.0f;
+                        break;
+                }
                 Element e;
                 e.token = REAL;
                 e.value = u;
-                tree->left_operand = createEntity(e);
-                tree->right_operand = createTree(first_elmt->nextElement);
+                tree->left_operand = createEntity(e); // left child is our +/-1
+                tree->right_operand = createTree(first_elmt->nextElement); // right child is the rest of the expression
             }
+                break;
         }
     }
     return tree;
