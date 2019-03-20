@@ -28,6 +28,7 @@ void startUserInterface() {
 /**
  * Initialise les libs SDL
  */
+
 static int initSDL() {
     if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO) < 0) {
         log_error("Impossible de charger SDL : %s", SDL_GetError());
