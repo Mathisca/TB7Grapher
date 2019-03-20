@@ -1,6 +1,4 @@
 #include "lexicalAnalyser.h"
-#include <stdlib.h>
-#include <string.h>
 
 double convertirenreel(char *s) {
 
@@ -48,6 +46,7 @@ ElementList RecognizeLexemVariable(ElementList e, char *saisie, int *i) {
         el->element.token = VARIABLE;
         Valeur u;
         el->element.value = u;
+        el->nextElement = NULL;
     } else {
         el = NULL;
     }
@@ -103,11 +102,13 @@ ElementList RecognizeLexemParenthesis(ElementList e, char *saisie, int *i) {
         case '(':
             el->element.token = PAR_OPN;
             el->element.value = value;
+            el->nextElement = NULL;
             break;
 
         case ')':
             el->element.token = PAR_CLS;
             el->element.value = value;
+            el->nextElement = NULL;
             break;
         default:
             el = NULL;
@@ -250,6 +251,9 @@ RecognizeLexemFunction(ElementList e, char *c, int *i) { // fonction permettant 
         default :
             el = NULL;
     }
+    if (el != NULL) {
+        el->nextElement = NULL;
+    }
     return el;
 }
 
@@ -259,6 +263,7 @@ ElementList RecognizeLexem(
     int *i = (int *) malloc(sizeof(int));
     *i = 0;
     ElementList list = (ElementList) malloc(sizeof(struct elementListSt));
+    list->nextElement = NULL;
     ElementList copy = list;
 
     ElementList op_e = NULL;
@@ -292,6 +297,13 @@ ElementList RecognizeLexem(
                         fun_e = RecognizeLexemFunction(e, chaine, i);
                         if (fun_e != NULL) {
                             list->nextElement = fun_e; // TODO sigsegv aussi
+                        } else {
+                            list->nextElement = (ElementList) malloc(sizeof(struct elementListSt));
+                            Element element;
+                            element.token = ERROR;
+                            element.value.error = UNRECOGNIZED_CHAR;
+                            list->nextElement->element = element;
+                            list->nextElement->nextElement = NULL;
                         }
                     }
                 }

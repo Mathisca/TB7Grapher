@@ -1,9 +1,18 @@
+/*
+ * File: syntaxAnalyser.h
+ * Names: DELFORGE Bastien
+ *        ALBRECHT Jérémy
+ * Date: 20/03/2019
+ */
+
 #include "syntaxAnalyser.h"
 
 /**
  * @brief Check for the syntax of the expression and call createTree if syntax is correct, return an error otherwise
  * @param list Linked list of the user's input
  * @return Binary tree containing our expression, a single node with the error if there is one
+ * @author DELFORGE Bastien
+ * @author ALBRECHT Jérémy
  */
 Entity syntaxBuild(ElementList list) {
     ERRORS error = syntaxChecker(list);
@@ -26,6 +35,8 @@ Entity syntaxBuild(ElementList list) {
  * @attention is called recursively
  * @param list Linked list we want the binary tree
  * @return Entity
+ * @author DELFORGE Bastien
+ * @author ALBRECHT Jérémy
  */
 Entity createTree(ElementList list) {
     Entity tree; // creating the return value
@@ -60,7 +71,7 @@ Entity createTree(ElementList list) {
             if (list->element.token == OPERATOR && actual_level < operator_lvl && i != 0) {
                 // we just detected an operator, whose level is below the previous one (i.e. more important) and isn't the first element of the expression
                 if (prev_elmnt != NULL && prev_elmnt->element.token !=
-                                          PAR_OPN) { // if the operator is right after a bracket, it's not a operator but only a sign in front of an function
+                                                  PAR_OPN) { // if the operator is right after a bracket, it's not a operator but only a sign in front of an function
                     operator = list->element.value;
                     operator_lvl = actual_level;
                     operator_position = i;
@@ -83,7 +94,7 @@ Entity createTree(ElementList list) {
         tree = createEntity(main_operator); // create the first node of the binary tree with the main operator
 
         if (first_elmt->element.token ==
-            PAR_OPN) { // if the first element is a bracket, we delete it and adapt the operator's position
+                PAR_OPN) { // if the first element is a bracket, we delete it and adapt the operator's position
             first_elmt = first_elmt->nextElement;
             operator_position--;
         }
@@ -184,6 +195,9 @@ Entity createTree(ElementList list) {
  * @details 4. Mandatory expression in a function
  * @details 5. Two operators cannot be followed, unless it's a minus or a plus
  * @details 6. No operators like MULTIPLY, DIVIDE at the begin of expression
+ *
+ * @author DELFORGE Bastien
+ * @author ALBRECHT Jérémy
  */
 ERRORS syntaxChecker(ElementList list) {
     ElementList firstElement = list; // create a copy of the first element
@@ -200,7 +214,7 @@ ERRORS syntaxChecker(ElementList list) {
 
     ElementList prev_elmnt; // storing the previous element during our loop
     while (list != NULL) {
-        if (list->element.token == PAR_OPN) { // TODO sigsegv
+        if (list->element.token == PAR_OPN) {
             opened_par++; // counting the opening brackets
             if (list->nextElement == NULL) { // next to an opening bracket there is no expression => SYNTAX_ERROR
                 error = SYNTAX_ERROR;
@@ -221,17 +235,17 @@ ERRORS syntaxChecker(ElementList list) {
                 break;
             } else {
                 if (list->nextElement->element.token !=
-                    PAR_OPN) { // a function is not followed by a bracket => PAR_ERROR
+                        PAR_OPN) { // a function is not followed by a bracket => PAR_ERROR
                     error = PAR_ERROR;
                     break;
                 }
                 if (list->nextElement->nextElement ==
-                    NULL) { // a function is followed by a bracket but then nothing => SYNTAX_ERROR
+                        NULL) { // a function is followed by a bracket but then nothing => SYNTAX_ERROR
                     error = SYNTAX_ERROR;
                     break;
                 } else {
                     if (list->nextElement->nextElement->element.token ==
-                        PAR_CLS) { // a function is followed by an opening bracket and directly after a closing bracket => SYNTAX_ERROR
+                            PAR_CLS) { // a function is followed by an opening bracket and directly after a closing bracket => SYNTAX_ERROR
                         error = SYNTAX_ERROR;
                         break;
                     }
@@ -243,10 +257,10 @@ ERRORS syntaxChecker(ElementList list) {
                 break;
             } else {
                 if (list->nextElement->element.token == OPERATOR &&
-                    (list->element.value.operators == MULTIPLY || list->element.value.operators == DIVIDE)) {
+                        (list->element.value.operators == MULTIPLY || list->element.value.operators == DIVIDE)) {
                     // an operator (DIVIDE and MULTIPLY) is followed by another operator different from PLUS and MINUS
                     if (list->nextElement->element.value.operators != PLUS &&
-                        list->nextElement->nextElement->element.value.operators != MINUS) {
+                            list->nextElement->nextElement->element.value.operators != MINUS) {
                         error = SYNTAX_ERROR;
                         break;
                     }
@@ -270,7 +284,7 @@ ERRORS syntaxChecker(ElementList list) {
     }
     // at the end there is an operator, a function or an opening bracket => SYNTAX_ERROR
     if (prev_elmnt->element.token == OPERATOR || prev_elmnt->element.token == FUNCTION || // TODO sigsev
-        prev_elmnt->element.token == PAR_OPN) {
+                                                                                          prev_elmnt->element.token == PAR_OPN) {
         error = SYNTAX_ERROR;
     }
 

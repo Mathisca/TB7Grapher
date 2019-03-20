@@ -49,6 +49,7 @@ Result result(Entity e, double x) {
                     break;
                 case POWER:
                     r.value = pow((result(e->left_operand, x).value), (result(e->right_operand, x).value)); //left son power right son
+                    break;
             }
         } else if (e->element.token == FUNCTION) { //management of the functions
             switch (e->element.value.functions) { //in case the type of the node is a function
