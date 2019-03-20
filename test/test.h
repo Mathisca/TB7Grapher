@@ -2,6 +2,7 @@
 #define TB7GRAPHER_TEST_H
 
 #include "../lib/lib.h"
+#include "tokens.h"
 
 void testGraph();
 
