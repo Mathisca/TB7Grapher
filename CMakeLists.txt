@@ -23,4 +23,3 @@
      target_link_libraries(TB7Grapher m)
  endif ()
 
-

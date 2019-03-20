@@ -2,6 +2,7 @@
 #define TB7GRAPHER_TEST_H
 
 #include "../lib/lib.h"
+#include "tokens.h"
 
 void testGraph();
 
@@ -31,6 +32,9 @@ ElementList createMockListTrue4();
 
 ElementList createMockListTrue5();
 
+ElementList createMockListTrue6();
+ElementList createMockListTrue7();
+ElementList createMockListTrue8();
 void testAnalyst();
 
 void testInterpreter();
