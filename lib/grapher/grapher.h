@@ -1,7 +1,7 @@
 #ifndef TB7GRAPHER_GRAPHER_H
 #define TB7GRAPHER_GRAPHER_H
 
-#import "../lib.h"
+#include "../lib.h"
 
 void userInterface();
 

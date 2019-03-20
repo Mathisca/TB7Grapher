@@ -1,11 +1,11 @@
+#include <time.h>
 #include "guiRenderer.h"
 
 TTF_Font *Sans;  //this opens a font style and sets a size
 
-Entity function;
+void startMainLoop() {
 
-void startMainLoop(Entity ent) {
-
+    srand(time(NULL));
     Sans = TTF_OpenFont("fonts/opensans.ttf", 100);
     if (Sans == NULL) {
         log_fatal("Font error : %s", TTF_GetError());
@@ -21,7 +21,17 @@ void startMainLoop(Entity ent) {
 
     SDL_SetTextInputRect(&Message_rect);
     SDL_StartTextInput();
-    processPoints();
+
+    addEntity(syntaxBuild(createMockListTrue()));
+    addEntity(syntaxBuild(createMockListTrue1()));
+    addEntity(syntaxBuild(createMockListTrue2()));
+    addEntity(syntaxBuild(createMockListTrue3()));
+    addEntity(syntaxBuild(createMockListTrue4()));
+    addEntity(syntaxBuild(createMockListTrue5()));
+    addEntity(syntaxBuild(createMockListTrue6()));
+    addEntity(syntaxBuild(createMockListTrue7()));
+    addEntity(syntaxBuild(createMockListTrue8()));
+
 
     while (1) {
         processEvents();
@@ -29,15 +39,37 @@ void startMainLoop(Entity ent) {
     }
 }
 
-Point p = NULL;
+
+ValueArray valuesArray = NULL;
+
+void addEntity(Entity e) {
+    ValueArray newArray = malloc(sizeof(struct valueArraySt));
+
+    newArray->e = e;
+    newArray->p = processPoints(e);
+    newArray->nextEntity = valuesArray;
+    SDL_Color color = {rand() % 255, rand() % 255, rand() % 255, 0xFF};
+    newArray->color = color;
+    valuesArray = newArray;
+}
+
+void recalculateAll() {
+    ValueArray copy = valuesArray;
+
+    while(copy != NULL) {
+        copy->p = processPoints(copy->e);
+        copy = copy->nextEntity;
+    }
+}
+
 double spanX = 10.0;
 double spanY = 10.0;
 
 int nbGrad = 10;
 
 
-void processPoints() {
-    p = NULL;
+Point processPoints(Entity e) {
+    Point p = NULL;
 
     for (double i = -spanX / 2.0; i < spanX / 2.0; i += spanX / 10000.0) {
         Result r = result(e, i);
@@ -59,15 +91,18 @@ void processPoints() {
         }
     }
 
+    return p;
+
+
 
 }
 
 
 void unzoom() {
-    spanY *= 2;
-    spanX *= 2;
+    spanY += 10;
+    spanX += 10;
 
-    processPoints();
+    recalculateAll();
 }
 
 void zoom() {
@@ -75,10 +110,10 @@ void zoom() {
         spanX = 1;
         spanY = 1;
     }
-    spanY /= 2;
-    spanX /= 2;
+    spanY -= 10;
+    spanX -= 10;
 
-    processPoints();
+    recalculateAll();
 }
 
 void nbGradChange(int mod) {
@@ -152,7 +187,7 @@ void render() {
 
         // Grid creation (except in the middle and at the beginning)
 
-        if (printGrid && i != 0 && i != 5) {
+        if (printGrid && i != 0 && i != nbGrad/2) {
             SDL_SetRenderDrawColor(getRenderer(), 0, 0, 0, 70);
             SDL_RenderDrawLine(getRenderer(), positionW, 0, positionW, height); // axe X
             SDL_RenderDrawLine(getRenderer(), graphBeginX, positionH, width, positionH); // axe Y
@@ -167,29 +202,33 @@ void render() {
 
     // Plotter creation
 
-    SDL_SetRenderDrawColor(getRenderer(), 0, 0, 0, 0xFF);
 
-    Point back = p;
-    while (back != NULL && back->nextPoint != NULL) {
+    ValueArray back = valuesArray;
+    while (back != NULL) {
+        Point p = back->p;
 
-        int x1 = (int) (graphWidth + ((graphWidth * back->x) / spanX));
-        int x2 = (int) (graphWidth + ((graphWidth * back->nextPoint->x) / spanX));
-        int y1 = (int) (height / 2.0 - ((back->y * height) / (spanY)));
-        int y2 = (int) (height / 2.0 - ((back->nextPoint->y * height) / (spanY)));
+        SDL_SetRenderDrawColor(getRenderer(), back->color.r, back->color.g,back->color.b,back->color.a);
+        while(p != NULL) {
+            int x1 = (int) (graphWidth + ((graphWidth * p->x) / spanX));
+            int y1 = (int) (height / 2.0 - ((p->y * height) / (spanY)));
+            SDL_RenderDrawPoint(getRenderer(), x1, y1);
 
-        SDL_RenderDrawPoint(getRenderer(), x1, y1);
+            p = p->nextPoint;
+        }
 
-        back = back->nextPoint;
+
+        back = back->nextEntity;
     }
+    SDL_SetRenderDrawColor(getRenderer(), 0xFF, 0, 0xFF, 0xFF);
 
     int mouseX, mouseY;
 
     SDL_GetMouseState(&mouseX, &mouseY);
-
+    /*
     if (mouseX >= graphBeginX) {
         double mathMouseX = ((mouseX - graphBeginX) * spanX) / graphWidth - spanX / 2.0;
 
-        Result r = result(e, mathMouseX);
+        Result r = result(function, mathMouseX);
 
         SDL_SetRenderDrawColor(getRenderer(), 0, 0, 0, 0xFF);
 
@@ -208,7 +247,7 @@ void render() {
                                realFunctionY);
         }
     }
-
+*/
     SDL_RenderPresent(getRenderer());
 
 

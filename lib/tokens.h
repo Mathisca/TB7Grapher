@@ -1,6 +1,9 @@
 #ifndef TB7GRAPHER_TOKENS_H
 #define TB7GRAPHER_TOKENS_H
 
+#include <SDL2/SDL.h>
+
+
 typedef enum TOKENS {
     NO_TOKEN,
     REAL,
@@ -34,7 +37,7 @@ typedef enum FUNCTIONS {
 
 } FUNCTIONS;
 
-typedef enum OPERATORS{
+typedef enum OPERATORS {
     MULTIPLY,
     DIVIDE,
     PLUS,
@@ -42,7 +45,7 @@ typedef enum OPERATORS{
     POWER
 } OPERATORS;
 
-typedef enum ERRORS{
+typedef enum ERRORS {
     NO_INPUT,
     NO_ERROR,
     DIV_BY_ZERO,
@@ -70,8 +73,8 @@ typedef struct resultSt {
     double value;
 } Result;
 
-typedef struct entitySt * Entity;
 
+typedef struct entitySt *Entity;
 struct entitySt {
     Element element;
 
@@ -79,7 +82,7 @@ struct entitySt {
     Entity right_operand;
 };
 
-typedef struct pointSt * Point;
+typedef struct pointSt *Point;
 struct pointSt {
     double x;
     double y;
@@ -87,7 +90,17 @@ struct pointSt {
     Point nextPoint;
 };
 
-typedef struct elementListSt * ElementList;
+typedef struct valueArraySt *ValueArray;
+struct valueArraySt {
+    Point p;
+    Entity e;
+    SDL_Color color;
+
+    ValueArray nextEntity;
+};
+
+
+typedef struct elementListSt *ElementList;
 struct elementListSt {
     Element element;
     ElementList nextElement;

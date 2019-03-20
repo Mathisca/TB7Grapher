@@ -3,12 +3,12 @@
 
 #include "../lib.h"
 
-Entity syntaxBuild(ElementList);
+Entity syntaxBuild(ElementList elementList);
 
-ERRORS syntaxChecker(ElementList list);
+ERRORS syntaxChecker(ElementList elementList);
 
-Entity createEntity(Element);
+Entity createEntity(Element e);
 
-Entity createTree(ElementList);
+Entity createTree(ElementList elementList);
 
 #endif //TB7GRAPHER_SYNTAXANALYSER_H
