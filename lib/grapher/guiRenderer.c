@@ -1,65 +1,57 @@
 #include "guiRenderer.h"
 
-TTF_Font *Sans;  //this opens a font style and sets a size
+TTF_Font *gFont;  //this opens a font style and sets a size
+ValueArray gValuesArray = NULL;
 
-Entity e;
+double gSpanX = 10.0;
+double gSpanY = 10.0;
+int gNbGrad = 10;
 
 void startMainLoop() {
-    e = malloc(sizeof(struct entitySt));
-    e->right_operand = malloc(sizeof(struct entitySt));
-    e->left_operand = malloc(sizeof(struct entitySt));
-    e->right_operand->left_operand = malloc(sizeof(struct entitySt));
-    e->left_operand->left_operand = malloc(sizeof(struct entitySt));
-    e->element.token = OPERATOR;
-    e->element.value.operators = MULTIPLY;
-    e->right_operand->element.token = FUNCTION;
-    e->right_operand->element.value.functions = LN;
-    e->right_operand->left_operand->element.token = VARIABLE;
-    e->left_operand->element.token = FUNCTION;
-    e->left_operand->element.value.functions = SIN;
-    e->left_operand->left_operand->element.token = REAL;
-    e->left_operand->left_operand->element.value.real = 9;
-    e->left_operand->right_operand = NULL;
-    e->left_operand->left_operand->left_operand = NULL;
-    e->left_operand->left_operand->right_operand = NULL;
-    e->right_operand->right_operand = NULL;
-    e->right_operand->left_operand->right_operand = NULL;
-    e->right_operand->left_operand->left_operand = NULL;
 
-    Sans = TTF_OpenFont("fonts/opensans.ttf", 100);
-    if (Sans == NULL) {
+    gFont = TTF_OpenFont("fonts/opensans.ttf", 100);
+    if (gFont == NULL) {
         log_fatal("Font error : %s", TTF_GetError());
         exit(1);
     }
 
-    SDL_Rect Message_rect; //create a rect
-    Message_rect.x = 0;  //controls the rect's x coordinate
-    Message_rect.y = 100; // controls the rect's y coordinte
-    Message_rect.w = 100; // controls the width of the rect
-    Message_rect.h = 100; // controls the height of the rect
+    addEntity(syntaxBuild(createMockListTrue()), "sin((2*x)+5)");
+    addEntity(syntaxBuild(createMockListTrue3()), "-tan(-x+2.5)*1.45");
+    addEntity(syntaxBuild(createMockListTrue6()), "tanh(x)");
 
-
-    SDL_SetTextInputRect(&Message_rect);
-    SDL_StartTextInput();
-    processPoints();
-
-    while (1) {
+    while (!SDL_QuitRequested()) {
         processEvents();
         render();
     }
 }
 
-Point p = NULL;
-double spanX = 10.0;
-double spanY = 10.0;
 
-int nbGrad = 10;
+void addEntity(Entity e, char *fct) {
+    ValueArray newArray = malloc(sizeof(struct valueArraySt));
+
+    newArray->e = e;
+    newArray->p = processPoints(e);
+    newArray->nextEntity = gValuesArray;
+    SDL_Color color = {(Uint8) (rand() % 255), (Uint8) (rand() % 255), (Uint8) (rand() % 255), 0xFF};
+    newArray->color = color;
+    newArray->printableValue = fct;
+    gValuesArray = newArray;
+}
+
+void recalculateAll() {
+    ValueArray copy = gValuesArray;
+
+    while (copy != NULL) {
+        copy->p = processPoints(copy->e);
+        copy = copy->nextEntity;
+    }
+}
 
 
-void processPoints() {
-    p = NULL;
+Point processPoints(Entity e) {
+    Point p = NULL;
 
-    for (double i = -spanX / 2.0; i < spanX / 2.0; i += spanX / 10000.0) {
+    for (double i = -gSpanX / 2.0; i < gSpanX / 2.0; i += gSpanX / 10000.0) {
         Result r = result(e, i);
 
         if (r.error == NO_ERROR) {
@@ -78,38 +70,34 @@ void processPoints() {
 
         }
     }
-
-
+    return p;
 }
 
 
 void unzoom() {
-    spanY *= 2;
-    spanX *= 2;
+    gSpanY += 10;
+    gSpanX += 10;
 
-    processPoints();
+    recalculateAll();
 }
 
 void zoom() {
-    if(spanX == 0 || spanY == 0) {
-        spanX = 1;
-        spanY = 1;
+    if (gSpanX == 0 || gSpanY == 0) {
+        gSpanX = 1;
+        gSpanY = 1;
     }
-    spanY /= 2;
-    spanX /= 2;
+    gSpanY -= 10;
+    gSpanX -= 10;
 
-    processPoints();
+    recalculateAll();
 }
 
 void nbGradChange(int mod) {
-    if (nbGrad + mod > 0)
-        nbGrad += mod;
+    if (gNbGrad + mod > 0)
+        gNbGrad += mod;
 }
 
 void render() {
-    spanX += 0.05;
-    spanY += 0.05;
-    processPoints();
     int width, height;
     getWindowWidth(&width, &height);
 
@@ -139,16 +127,16 @@ void render() {
 
     // Arrows creation
 
-    SDL_RenderDrawLine(getRenderer(), graphMidX - 10, 20 ,graphMidX , 0);
+    SDL_RenderDrawLine(getRenderer(), graphMidX - 10, 20, graphMidX, 0);
     SDL_RenderDrawLine(getRenderer(), graphMidX, 0, graphMidX + 10, 20);
-    SDL_RenderDrawLine(getRenderer(), width - 20, height/2 +10 , width, height/2);
-    SDL_RenderDrawLine(getRenderer(), width, height/2, width - 20, height/2 - 10);
+    SDL_RenderDrawLine(getRenderer(), width - 20, height / 2 + 10, width, height / 2);
+    SDL_RenderDrawLine(getRenderer(), width, height / 2, width - 20, height / 2 - 10);
 
     // Graduations creation
 
-    for (int i = 0; i < nbGrad; i++) {
-        int positionW = (int) (graphBeginX + i * (graphWidth) / nbGrad);
-        int positionH = (int) (i * ((double) height / nbGrad));
+    for (int i = 0; i < gNbGrad; i++) {
+        int positionW = (int) (graphBeginX + i * (graphWidth) / gNbGrad);
+        int positionH = (int) (i * ((double) height / gNbGrad));
 
         int gradSizeW = (int) (graphWidth / 100);
         int gradSizeH = height / 100;
@@ -161,12 +149,10 @@ void render() {
 
         char *grad = malloc(sizeof(char) * 100);
 
-        sprintf(grad, "%.1lf", ((1.0 * i / nbGrad) * spanX) - spanX / 2);
-
+        sprintf(grad, "%.1lf", ((1.0 * i / gNbGrad) * gSpanX) - gSpanX / 2);
         makeText(grad, positionW + gradSizeW, height / 2 + gradSizeH, 20, 20);
 
-        sprintf(grad, "%.1lf", ((-1.0 * i / nbGrad) * spanY) + spanY / 2);
-
+        sprintf(grad, "%.1lf", ((-1.0 * i / gNbGrad) * gSpanY) + gSpanY / 2);
         makeText(grad, graphMidX + gradSizeW, positionH + gradSizeH, 20, 20);
 
 
@@ -175,7 +161,7 @@ void render() {
 
         // Grid creation (except in the middle and at the beginning)
 
-        if (printGrid && i != 0 && i != 5) {
+        if (printGrid && i != 0 && i != gNbGrad / 2) {
             SDL_SetRenderDrawColor(getRenderer(), 0, 0, 0, 70);
             SDL_RenderDrawLine(getRenderer(), positionW, 0, positionW, height); // axe X
             SDL_RenderDrawLine(getRenderer(), graphBeginX, positionH, width, positionH); // axe Y
@@ -183,41 +169,74 @@ void render() {
 
     }
 
-    makeText("TB7Plotter", 30, 0, width / 3 - 60, 100);
+    makeText("TB7Plotter", 50, 0, width / 3 - 100, height / 10);
     //makeText("R : Entrer une nouvelle expression", 30, 200, width / 4 - 60, 0);
-    makeText("x", width - width/70, height/2 + height/600, width/75, width/50);
-    makeText("f(x)", graphMidX - width/30, height/700, width/50, width/50);
+    makeText("x", width - width / 70, height / 2 + height / 600, width / 75, width / 50);
+    makeText("f(x)", graphMidX - width / 30, height / 700, width / 50, width / 50);
 
     // Plotter creation
 
-    SDL_SetRenderDrawColor(getRenderer(), 0xFF, 0, 0, 0xFF);
 
-    Point back = p;
-    while (back != NULL && back->nextPoint != NULL) {
+    ValueArray back = gValuesArray;
+    for (int j = 0; back != NULL; ++j) {
+        Point p = back->p;
 
-        int x1 = (int) (graphWidth + ((graphWidth * back->x) / spanX));
-        int x2 = (int) (graphWidth + ((graphWidth * back->nextPoint->x) / spanX));
-        int y1 = (int) (height / 2.0 - ((back->y * height) / (spanY)));
-        int y2 = (int) (height / 2.0 - ((back->nextPoint->y * height) / (spanY)));
+        SDL_SetRenderDrawColor(getRenderer(), back->color.r, back->color.g, back->color.b, back->color.a);
 
-        SDL_RenderDrawPoint(getRenderer(), x1, y1);
+        while (p != NULL) {
+            int x1 = (int) (graphWidth + ((graphWidth * p->x) / gSpanX));
+            int y1 = (int) (height / 2.0 - ((p->y * height) / (gSpanY)));
+            SDL_RenderDrawPoint(getRenderer(), x1, y1);
 
-        back = back->nextPoint;
+            p = p->nextPoint;
+        }
+
+        int yLine = height / 5 + (height / 10) * j;
+        int xLine = width / 30;
+
+
+        SDL_RenderDrawLine(getRenderer(), xLine, yLine, 2 * xLine, yLine);
+        char *printableString = malloc(sizeof(char) * 100);
+
+        sprintf(printableString, "f(x) = %s", back->printableValue);
+        makeText(printableString, (int) (2.3 * xLine), yLine - 10, width/200.0*strlen(printableString), 30);
+
+        back = back->nextEntity;
     }
+
+    SDL_SetRenderDrawColor(getRenderer(), 0xFF, 0, 0xFF, 0xFF);
 
     int mouseX, mouseY;
 
     SDL_GetMouseState(&mouseX, &mouseY);
 
+    double mathMouseX = (((mouseX - graphBeginX) * gSpanX) / graphWidth - gSpanX / 2.0);
+    double mathMouseY = -((mouseY - height / 2) * gSpanY) / height;
+
+
     if (mouseX >= graphBeginX) {
-        double mathMouseX = ((mouseX - graphBeginX) * spanX) / graphWidth - spanX / 2.0;
+        char *position = malloc(sizeof(char) * 100);
 
-        Result r = result(e, mathMouseX);
+        sprintf(position, "x = %.2lf", mathMouseX);
+        makeText(position, graphBeginX + 10, height - 20, 80, 20);
 
-        SDL_SetRenderDrawColor(getRenderer(), 0, 0xFF, 0xFF, 0xFF);
+        sprintf(position, "y = %.2lf", mathMouseY);
+        makeText(position, graphBeginX + 10, height - 45, 80, 20);
+
+        free(position);
+
+    }
+
+    /*
+    if (mouseX >= graphBeginX) {
+        double mathMouseX = ((mouseX - graphBeginX) * gSpanX) / graphWidth - gSpanX / 2.0;
+
+        Result r = result(function, mathMouseX);
+
+        SDL_SetRenderDrawColor(getRenderer(), 0, 0, 0, 0xFF);
 
         if (r.error == NO_ERROR && !isnan(r.value)) {
-            int realFunctionY = (int) (height / 2 - ((r.value * height) / (spanY)));
+            int realFunctionY = (int) (height / 2 - ((r.value * height) / (gSpanY)));
 
             char *str = malloc(sizeof(char) * 100);
             sprintf(str, "[%lf, %lf]", mathMouseX, r.value);
@@ -231,7 +250,7 @@ void render() {
                                realFunctionY);
         }
     }
-
+*/
     SDL_RenderPresent(getRenderer());
 
 
@@ -240,7 +259,7 @@ void render() {
 static void makeText(char *text, int x, int y, int w, int h) {
     SDL_Color black = {0, 0, 0};
 
-    SDL_Surface *surfaceMessage = TTF_RenderText_Blended(Sans, text, black);
+    SDL_Surface *surfaceMessage = TTF_RenderText_Blended(gFont, text, black);
     SDL_Texture *Message = SDL_CreateTextureFromSurface(getRenderer(),
                                                         surfaceMessage); //now you can convert it into a texture
 

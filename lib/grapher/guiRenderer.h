@@ -8,7 +8,11 @@ void startMainLoop();
 
 void render();
 
-void processPoints();
+Point processPoints(Entity e);
+
+void addEntity(Entity e, char * fct);
+
+void recalculateAll();
 
 static void makeText(char *text, int x, int y, int w, int h);
 

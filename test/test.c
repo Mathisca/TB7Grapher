@@ -1,44 +1,30 @@
-/*
-include "test.h"
-//#include "SDL.h"
-
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
-
-void testGraph() {
-//    SDL_Window* window = NULL;
-//    SDL_Surface* screenSurface = NULL;
-//    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-//        fprintf(stderr, "could not initialize sdl2: %s\n", SDL_GetError());
-//        return;
-//    }
-//    window = SDL_CreateWindow(
-//            "hello_sdl2",
-//            SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-//            SCREEN_WIDTH, SCREEN_HEIGHT,
-//            SDL_WINDOW_SHOWN
-//    );
-//    if (window == NULL) {
-//        fprintf(stderr, "could not create window: %s\n", SDL_GetError());
-//        return;
-//    }
-//    screenSurface = SDL_GetWindowSurface(window);
-//    SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
-//    SDL_UpdateWindowSurface(window);
-//    SDL_Delay(2000);
-//    SDL_DestroyWindow(window);
-//    SDL_Quit();
-}
+#include "test.h"
 
 void testSyntax() {
-    ElementList list = createMockListTrue();
-    ERRORS err0 = syntaxChecker(list);
+    ElementList list0 = createMockListTrue();
+    ElementList list1 = createMockListTrue1();
+    ElementList list2 = createMockListTrue2();
+    ElementList list3 = createMockListTrue3();
+    ElementList list4 = createMockListTrue4();
+    ElementList list5 = createMockListTrue5();
+    ElementList list6 = createMockListTrue6();
+    ElementList list7 = createMockListTrue7();
+    ElementList list8 = createMockListTrue8();
     ERRORS err1 = syntaxChecker(createMockListFalse1());
     ERRORS err2 = syntaxChecker(createMockListFalse2());
     ERRORS err3 = syntaxChecker(createMockListFalse3());
     ERRORS err4 = syntaxChecker(createMockListFalse4());
     ERRORS err5 = syntaxChecker(createMockListFalse5());
     ERRORS err6 = syntaxChecker(createMockListFalse6());
+    Entity tree0 = createTree(list0);
+    Entity tree1 = createTree(list1);
+    Entity tree2 = createTree(list2);
+    Entity tree3 = createTree(list3);
+    Entity tree4 = createTree(list4);
+    Entity tree5 = createTree(list5);
+    Entity tree6 = createTree(list6);
+    Entity tree7 = createTree(list7);
+    Entity tree8 = createTree(list8);
     return;
 }
 
@@ -47,7 +33,34 @@ void testAnalyst() {
 }
 
 void testInterpreter() {
-
+    ElementList list0 = createMockListTrue();
+    ElementList list1 = createMockListTrue1();
+    ElementList list2 = createMockListTrue2();
+    ElementList list3 = createMockListTrue3();
+    ElementList list4 = createMockListTrue4();
+    ElementList list5 = createMockListTrue5();
+    ElementList list6 = createMockListTrue6();
+    ElementList list7 = createMockListTrue7();
+    ElementList list8 = createMockListTrue8();
+    Entity tree0 = createTree(list0);
+    Entity tree1 = createTree(list1);
+    Entity tree2 = createTree(list2);
+    Entity tree3 = createTree(list3);
+    Entity tree4 = createTree(list4);
+    Entity tree5 = createTree(list5);
+    Entity tree6 = createTree(list6);
+    Entity tree7 = createTree(list7);
+    Entity tree8 = createTree(list8);
+    Result r0 = result(tree0, 6); // -0.96
+    Result r1 = result(tree1, 2.5); // -31.5
+    Result r2 = result(tree2, -5); // 26
+    Result r3 = result(tree3, M_PI_4); //10.01
+    Result r4 = result(tree4, 5); // 2.415
+    Result r5 = result(tree5, 500); // 1000
+    Result r6 = result(tree6, 0.5); // 0.46211
+    Result r7 = result(tree7, 5); //DIVIDE_BY_ZERO
+    Result r8 = result(tree8, -1); // NON_REAL_OPERATION
+    printf("Test done");
 }
 
 ElementList createMockElement(TOKENS token, Valeur u) {
@@ -92,7 +105,7 @@ ElementList createMockListTrue() {
 }
 
 ElementList createMockListTrue1() {
-    // (3*x)+3)*3
+    // ((3*x)+3)*3
     ElementList list;
     Valeur u1;
     u1.real = 3.0f;
@@ -122,7 +135,7 @@ ElementList createMockListTrue1() {
 }
 
 ElementList createMockListTrue2() {
-    // -tan(-x+2.5)*1.45
+    // 5*(-x+1)
     ElementList list;
     Valeur u1;
     u1.real = 5.0f;
@@ -148,6 +161,7 @@ ElementList createMockListTrue2() {
 }
 
 ElementList createMockListTrue3() {
+    // -tan(-x+2.5)*1.45
     ElementList list;
     Valeur u1;
     u1.operators = MINUS;
@@ -179,6 +193,7 @@ ElementList createMockListTrue3() {
 }
 
 ElementList createMockListTrue4() {
+    // 2.415
     ElementList list;
     Valeur u1;
     u1.real = 2.415;
@@ -188,6 +203,7 @@ ElementList createMockListTrue4() {
 }
 
 ElementList createMockListTrue5() {
+    // 2*x
     ElementList list;
     Valeur u1;
     u1.real = 2.0f;
@@ -201,8 +217,9 @@ ElementList createMockListTrue5() {
 }
 
 ElementList createMockListTrue6() {
+    // tanh(x)
     Valeur u;
-    u.functions = TAN;
+    u.functions = TANH;
     ElementList list = createMockElement(FUNCTION, u);
     list->nextElement = createMockElement(PAR_OPN, u);
     list->nextElement->nextElement = createMockElement(VARIABLE, u);
@@ -212,6 +229,7 @@ ElementList createMockListTrue6() {
 }
 
 ElementList createMockListTrue7() {
+    // 5/0
     Valeur u1;
     u1.real = 0.0f;
     Valeur u2;
@@ -237,7 +255,6 @@ ElementList createMockListTrue8() {
     list->nextElement->nextElement->nextElement->nextElement = NULL;
     return list;
 }
->>>>>>> master
 ElementList createMockListFalse1() {
     //*5x
     Valeur u1;
@@ -331,12 +348,3 @@ ElementList createMockListFalse6() {
     list->nextElement->nextElement->nextElement->nextElement = NULL;
     return list;
 }
- */
-
-#include "test.h"
-
-Entity create_test_entity (Element e, Entity el, Entity er) {
-    Entity R = malloc(sizeof(struct entitySt));
-
-
-};

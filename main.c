@@ -1,18 +1,10 @@
 #include "main.h"
 
 int main() {
-   // log_info("Hello, world");
- //   testGraph();
-  //  testSyntax();
- //double res = test_evaluation();
-//  printf("%lf", res );
-//    plotFunction(NULL, -5, 5, 0.1);
+    // testInterpreter();
 
-
-    //initGraphics();
-    //startMainLoop();
-
-    //printf("%lf", test_evaluation());
+    srand(time(NULL));
+    startUserInterface();
 
     return 0;
 }

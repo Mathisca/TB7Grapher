@@ -19,6 +19,8 @@ void getWindowWidth(int *w, int *h);
 
 SDL_Renderer *getRenderer();
 
+void startUserInterface();
+
 void freeGraphics();
 
 int initGraphics();

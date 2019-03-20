@@ -2,6 +2,10 @@
 
 static SDL_Renderer *gRenderer = NULL;
 
+void startUserInterface() {
+    initGraphics();
+    startMainLoop();
+}
 
 /**
  * Initialise les libs SDL
@@ -12,16 +16,15 @@ static int initSDL() {
         return 0;
     }
     if (TTF_Init() < 0) {
-        //printf(KRED "Impossible de charger l'extension TTF : %s" KRESET, TTF_GetError());
+        log_error("Impossible de charger l'extension TTF : %s", TTF_GetError());
         return 0;
     }
     if (IMG_Init(IMG_INIT_PNG) < 0) {
-        // printf(KRED "Impossible de charger l'extension IMG : %s" KRESET, IMG_GetError());
+        log_error("Impossible de charger l'extension IMG : %s", IMG_GetError());
         return 0;
     }
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-
     return 1;
 }
 
@@ -40,7 +43,6 @@ static int createWindow() {
         log_error("Impossible de créer la fenêtre : %s\n", SDL_GetError());
         return 0;
     }
-
     SDL_SetWindowResizable(gWindow, SDL_TRUE);
 
     return 1;
