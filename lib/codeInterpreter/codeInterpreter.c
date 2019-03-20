@@ -106,12 +106,12 @@ Result result(Entity e, double x) {
                 case TANH:
                     r.value = tanh(result(e->left_operand, x).value);
                     break;
-                    /*case SQRT:
-                        if (e->left_operand->element.value.real < 0) {
-                            r.error = NON_REAL_OPERATION;
-                        }
-                        r.value = sqrt(result(e->left_operand, x).value);
-                        break; */
+                case SQRT:
+                    if (e->left_operand->element.value.real < 0) {
+                        r.error = NON_REAL_OPERATION;
+                    }
+                    r.value = sqrt(result(e->left_operand, x).value);
+                    break;
                 case ARCSIN:
                     if (e->left_operand->element.value.real < -1 || e->left_operand->element.value.real > 1) {
                         r.error = NON_REAL_OPERATION;
