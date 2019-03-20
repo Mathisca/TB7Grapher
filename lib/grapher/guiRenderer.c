@@ -2,29 +2,9 @@
 
 TTF_Font *Sans;  //this opens a font style and sets a size
 
-Entity e;
+Entity function;
 
-void startMainLoop() {
-    e = malloc(sizeof(struct entitySt));
-    e->right_operand = malloc(sizeof(struct entitySt));
-    e->left_operand = malloc(sizeof(struct entitySt));
-    e->right_operand->left_operand = malloc(sizeof(struct entitySt));
-    e->left_operand->left_operand = malloc(sizeof(struct entitySt));
-    e->element.token = OPERATOR;
-    e->element.value.operators = MULTIPLY;
-    e->right_operand->element.token = FUNCTION;
-    e->right_operand->element.value.functions = LN;
-    e->right_operand->left_operand->element.token = VARIABLE;
-    e->left_operand->element.token = FUNCTION;
-    e->left_operand->element.value.functions = SIN;
-    e->left_operand->left_operand->element.token = REAL;
-    e->left_operand->left_operand->element.value.real = 9;
-    e->left_operand->right_operand = NULL;
-    e->left_operand->left_operand->left_operand = NULL;
-    e->left_operand->left_operand->right_operand = NULL;
-    e->right_operand->right_operand = NULL;
-    e->right_operand->left_operand->right_operand = NULL;
-    e->right_operand->left_operand->left_operand = NULL;
+void startMainLoop(Entity ent) {
 
     Sans = TTF_OpenFont("fonts/opensans.ttf", 100);
     if (Sans == NULL) {
@@ -107,9 +87,6 @@ void nbGradChange(int mod) {
 }
 
 void render() {
-    spanX += 0.05;
-    spanY += 0.05;
-    processPoints();
     int width, height;
     getWindowWidth(&width, &height);
 
@@ -190,7 +167,7 @@ void render() {
 
     // Plotter creation
 
-    SDL_SetRenderDrawColor(getRenderer(), 0xFF, 0, 0, 0xFF);
+    SDL_SetRenderDrawColor(getRenderer(), 0, 0, 0, 0xFF);
 
     Point back = p;
     while (back != NULL && back->nextPoint != NULL) {
@@ -214,7 +191,7 @@ void render() {
 
         Result r = result(e, mathMouseX);
 
-        SDL_SetRenderDrawColor(getRenderer(), 0, 0xFF, 0xFF, 0xFF);
+        SDL_SetRenderDrawColor(getRenderer(), 0, 0, 0, 0xFF);
 
         if (r.error == NO_ERROR && !isnan(r.value)) {
             int realFunctionY = (int) (height / 2 - ((r.value * height) / (spanY)));

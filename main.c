@@ -9,8 +9,8 @@ int main() {
 //    plotFunction(NULL, -5, 5, 0.1);
 
 
-    //initGraphics();
-    //startMainLoop();
+    initGraphics();
+    startMainLoop();
 
     //printf("%lf", test_evaluation());
 

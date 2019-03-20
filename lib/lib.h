@@ -12,6 +12,7 @@
 #include "logger/log.h"
 
 #include "codeInterpreter/codeInterpreter.h"
+#include "grapher/grapher.h"
 #include "grapher/guiManager.h"
 #include "grapher/guiRenderer.h"
 #include "lexicalAnalyser/lexicalAnalyser.h"
