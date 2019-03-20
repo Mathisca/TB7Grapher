@@ -143,6 +143,9 @@ Entity createTree(ElementList list) {
         tree->left_operand = createTree(second_expression);
         tree->right_operand = createTree(first_expression);
     } else {
+        if (first_elmt->element.token == PAR_OPN) {
+            first_elmt = first_elmt->nextElement;
+        }
         if (first_elmt->element.token == VARIABLE) {
             tree = createEntity(first_elmt->element);
         } else if (first_elmt->element.token == REAL) {

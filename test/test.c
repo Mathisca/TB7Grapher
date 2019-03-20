@@ -198,6 +198,43 @@ ElementList createMockListTrue5() {
     return list;
 }
 
+ElementList createMockListTrue6() {
+    Valeur u;
+    u.functions = TAN;
+    ElementList list = createMockElement(FUNCTION, u);
+    list->nextElement = createMockElement(PAR_OPN, u);
+    list->nextElement->nextElement = createMockElement(VARIABLE, u);
+    list->nextElement->nextElement->nextElement = createMockElement(PAR_CLS, u);
+    list->nextElement->nextElement->nextElement->nextElement = NULL;
+    return list;
+}
+
+ElementList createMockListTrue7() {
+    Valeur u1;
+    u1.real = 0.0f;
+    Valeur u2;
+    u2.real = 5.0f;
+    ElementList list = createMockElement(REAL, u2);
+    Valeur u3;
+    u3.operators = DIVIDE;
+    list->nextElement = createMockElement(OPERATOR, u3);
+    list->nextElement->nextElement = createMockElement(REAL, u1);
+    list->nextElement->nextElement->nextElement = NULL;
+    return list;
+}
+
+ElementList createMockListTrue8() {
+    Valeur u1;
+    u1.operators = SQRT;
+    Valeur u2;
+    u2.real = -1.0f;
+    ElementList  list = createMockElement(FUNCTION, u1);
+    list->nextElement = createMockElement(PAR_OPN, u1);
+    list->nextElement->nextElement = createMockElement(VARIABLE, u1);
+    list->nextElement->nextElement->nextElement = createMockElement(PAR_CLS, u1);
+    list->nextElement->nextElement->nextElement->nextElement = NULL;
+    return list;
+}
 ElementList createMockListFalse1() {
     //*5x
     Valeur u1;
