@@ -1,4 +1,9 @@
-#include "test.h"
+/*
+include "test.h"
+//#include "SDL.h"
+
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 
 void testGraph() {
 //    SDL_Window* window = NULL;
@@ -34,9 +39,6 @@ void testSyntax() {
     ERRORS err4 = syntaxChecker(createMockListFalse4());
     ERRORS err5 = syntaxChecker(createMockListFalse5());
     ERRORS err6 = syntaxChecker(createMockListFalse6());
-//    syntaxBuild(list);
-    ElementList list2 = createMockListTrue4();
-    Entity tree = createTree(list2);
     return;
 }
 
@@ -235,6 +237,7 @@ ElementList createMockListTrue8() {
     list->nextElement->nextElement->nextElement->nextElement = NULL;
     return list;
 }
+>>>>>>> master
 ElementList createMockListFalse1() {
     //*5x
     Valeur u1;
@@ -328,3 +331,12 @@ ElementList createMockListFalse6() {
     list->nextElement->nextElement->nextElement->nextElement = NULL;
     return list;
 }
+ */
+
+#include "test.h"
+
+Entity create_test_entity (Element e, Entity el, Entity er) {
+    Entity R = malloc(sizeof(struct entitySt));
+
+
+};
