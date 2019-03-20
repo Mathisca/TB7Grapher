@@ -1,5 +1,8 @@
+/*
+ * File: codeInterpreter.c
+ * Names: AMYOT Flavie, SALIBA Louise
+ */
 #include "codeInterpreter.h"
-
 
 Result result(Entity e, double x) {
     Result r; // structure to return
@@ -141,7 +144,7 @@ Result result(Entity e, double x) {
 }
 
 
-double test_evaluation() { //test function of the program : creating a tree
+double test_evaluation() { //test function of the program : creating a tree and returning the value of f(x)
     double res = 0; //Value to return
     Result r;
     Entity e = malloc(sizeof(struct entitySt));

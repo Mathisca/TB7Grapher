@@ -1,3 +1,8 @@
+/*
+ * File: codeInterpreter.h
+ * Names: AMYOT Flavie, SALIBA Louise
+ */
+
 #ifndef TB7GRAPHER_CODEINTERPRETER_H
 
 #define TB7GRAPHER_CODEINTERPRETER_H
@@ -15,9 +20,18 @@ Result result (Entity e, double x);
  *
  * @pre l'arbre existe
  * @post le calcul est valide
- * @invariant
+ * @invariant //
  */
 
 double test_evaluation ();
+/**
+ * @brief Teste la fonction principale en créant un arbre comportant une fonction, appel de la fonction result pour obtenir f(x)
+ *
+ * @return f(x)
+ *
+ * @pre //
+ * @post l'abre est crée et la fonction renvoie le résultat du calcul
+ * @invariant //
+ */
 
 #endif //TB7GRAPHER_CODEINTERPRETER_H
