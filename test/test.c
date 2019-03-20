@@ -26,17 +26,30 @@ void testGraph() {
 }
 
 void testSyntax() {
-    ElementList list = createMockListTrue();
-    ERRORS err0 = syntaxChecker(list);
+    ElementList list0 = createMockListTrue();
+    ElementList list1 = createMockListTrue1();
+    ElementList list2 = createMockListTrue2();
+    ElementList list3 = createMockListTrue3();
+    ElementList list4 = createMockListTrue4();
+    ElementList list5 = createMockListTrue5();
+    ElementList list6 = createMockListTrue6();
+    ElementList list7 = createMockListTrue7();
+    ElementList list8 = createMockListTrue8();
     ERRORS err1 = syntaxChecker(createMockListFalse1());
     ERRORS err2 = syntaxChecker(createMockListFalse2());
     ERRORS err3 = syntaxChecker(createMockListFalse3());
     ERRORS err4 = syntaxChecker(createMockListFalse4());
     ERRORS err5 = syntaxChecker(createMockListFalse5());
     ERRORS err6 = syntaxChecker(createMockListFalse6());
-//    syntaxBuild(list);
-    ElementList list2 = createMockListTrue4();
-    Entity tree = createTree(list2);
+    Entity tree0 = createTree(list0);
+    Entity tree1 = createTree(list1);
+    Entity tree2 = createTree(list2);
+    Entity tree3 = createTree(list3);
+    Entity tree4 = createTree(list4);
+    Entity tree5 = createTree(list5);
+    Entity tree6 = createTree(list6);
+    Entity tree7 = createTree(list7);
+    Entity tree8 = createTree(list8);
     return;
 }
 
@@ -45,7 +58,34 @@ void testAnalyst() {
 }
 
 void testInterpreter() {
-
+    ElementList list0 = createMockListTrue();
+    ElementList list1 = createMockListTrue1();
+    ElementList list2 = createMockListTrue2();
+    ElementList list3 = createMockListTrue3();
+    ElementList list4 = createMockListTrue4();
+    ElementList list5 = createMockListTrue5();
+    ElementList list6 = createMockListTrue6();
+    ElementList list7 = createMockListTrue7();
+    ElementList list8 = createMockListTrue8();
+    Entity tree0 = createTree(list0);
+    Entity tree1 = createTree(list1);
+    Entity tree2 = createTree(list2);
+    Entity tree3 = createTree(list3);
+    Entity tree4 = createTree(list4);
+    Entity tree5 = createTree(list5);
+    Entity tree6 = createTree(list6);
+    Entity tree7 = createTree(list7);
+    Entity tree8 = createTree(list8);
+    Result r0 = result(tree0, 6); // -0.96
+    Result r1 = result(tree1, 2.5); // -31.5
+    Result r2 = result(tree2, -5); // 26
+    Result r3 = result(tree3, M_PI_4); //10.01
+    Result r4 = result(tree4, 5); // 2.415
+    Result r5 = result(tree5, 500); // 1000
+    Result r6 = result(tree6, 0.5); // 0.46211
+    Result r7 = result(tree7, 5); //DIVIDE_BY_ZERO
+    Result r8 = result(tree8, -1); // NON_REAL_OPERATION
+    printf("Test done");
 }
 
 ElementList createMockElement(TOKENS token, Valeur u) {
@@ -90,7 +130,7 @@ ElementList createMockListTrue() {
 }
 
 ElementList createMockListTrue1() {
-    // (3*x)+3)*3
+    // ((3*x)+3)*3
     ElementList list;
     Valeur u1;
     u1.real = 3.0f;
@@ -120,7 +160,7 @@ ElementList createMockListTrue1() {
 }
 
 ElementList createMockListTrue2() {
-    // -tan(-x+2.5)*1.45
+    // 5*(-x+1)
     ElementList list;
     Valeur u1;
     u1.real = 5.0f;
@@ -146,6 +186,7 @@ ElementList createMockListTrue2() {
 }
 
 ElementList createMockListTrue3() {
+    // -tan(-x+2.5)*1.45
     ElementList list;
     Valeur u1;
     u1.operators = MINUS;
@@ -177,6 +218,7 @@ ElementList createMockListTrue3() {
 }
 
 ElementList createMockListTrue4() {
+    // 2.415
     ElementList list;
     Valeur u1;
     u1.real = 2.415;
@@ -186,6 +228,7 @@ ElementList createMockListTrue4() {
 }
 
 ElementList createMockListTrue5() {
+    // 2*x
     ElementList list;
     Valeur u1;
     u1.real = 2.0f;
@@ -198,6 +241,45 @@ ElementList createMockListTrue5() {
     return list;
 }
 
+ElementList createMockListTrue6() {
+    // tanh(x)
+    Valeur u;
+    u.functions = TANH;
+    ElementList list = createMockElement(FUNCTION, u);
+    list->nextElement = createMockElement(PAR_OPN, u);
+    list->nextElement->nextElement = createMockElement(VARIABLE, u);
+    list->nextElement->nextElement->nextElement = createMockElement(PAR_CLS, u);
+    list->nextElement->nextElement->nextElement->nextElement = NULL;
+    return list;
+}
+
+ElementList createMockListTrue7() {
+    // 5/0
+    Valeur u1;
+    u1.real = 0.0f;
+    Valeur u2;
+    u2.real = 5.0f;
+    ElementList list = createMockElement(REAL, u2);
+    Valeur u3;
+    u3.operators = DIVIDE;
+    list->nextElement = createMockElement(OPERATOR, u3);
+    list->nextElement->nextElement = createMockElement(REAL, u1);
+    list->nextElement->nextElement->nextElement = NULL;
+    return list;
+}
+
+ElementList createMockListTrue8() {
+    Valeur u1;
+    u1.operators = SQRT;
+    Valeur u2;
+    u2.real = -1.0f;
+    ElementList  list = createMockElement(FUNCTION, u1);
+    list->nextElement = createMockElement(PAR_OPN, u1);
+    list->nextElement->nextElement = createMockElement(VARIABLE, u1);
+    list->nextElement->nextElement->nextElement = createMockElement(PAR_CLS, u1);
+    list->nextElement->nextElement->nextElement->nextElement = NULL;
+    return list;
+}
 ElementList createMockListFalse1() {
     //*5x
     Valeur u1;
