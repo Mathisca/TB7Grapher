@@ -41,12 +41,9 @@ void processEvents() {
 
 void processMouseWheel(SDL_MouseWheelEvent event) {
     if (event.y == -1) { // molette bas
-        increaseYSpan(10);
-        increaseXSpan(10);
+        zoom();
     } else {
-        reduceYSpan(10);
-        reduceXSpan(10);
-
+        unzoom();
     }
 
 }
@@ -65,20 +62,12 @@ static void processKeyDown(SDL_Keysym key) {
 
     switch (code) {
         case (97) : // A
+            nbGradChange(-2);
+            break;
+        case (122): // Z
             nbGradChange(2);
             break;
-        case 122: { // Z
-            increaseYSpan(10);
-        }
-        case 113: { // Q
-            reduceXSpan(10);
-        }
-        case 115: { // S
-            reduceYSpan(10);
-        }
-        case 100: { // D
-            increaseXSpan(10);
-        }
+
     }
 
 
