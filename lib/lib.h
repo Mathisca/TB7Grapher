@@ -6,6 +6,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "tokens.h"
+#include <time.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -16,7 +17,6 @@
 #include "codeInterpreter/codeInterpreter.h"
 #include "lexicalAnalyser/lexicalAnalyser.h"
 #include "syntaxAnalyser/syntaxAnalyser.h"
-#include "grapher/grapher.h"
 #include "grapher/guiManager.h"
 #include "grapher/guiRenderer.h"
 
