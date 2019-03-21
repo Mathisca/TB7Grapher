@@ -163,25 +163,72 @@ double test_evaluation() { //test function of the program : creating a tree and 
     double res = 0; //Value to return
     Result r;
     Entity e = malloc(sizeof(struct entitySt));
+
+    /*
+    // sin(9) x ln(2x)
     e->right_operand = malloc(sizeof(struct entitySt)); //allocating memory to the tree
     e->left_operand = malloc(sizeof(struct entitySt));
     e->right_operand->left_operand = malloc(sizeof(struct entitySt));
     e->left_operand->left_operand = malloc(sizeof(struct entitySt));
+    e->left_operand->left_operand->right_operand = malloc(sizeof(struct entitySt));
+    e->left_operand->left_operand->left_operand = malloc(sizeof(struct entitySt));
+
     e->element.token = OPERATOR; //main node is an operator
     e->element.value.operators = MULTIPLY; // the value of this operator is a multiply
     e->right_operand->element.token = FUNCTION; //right node is a function
     e->right_operand->element.value.functions = LN; // value of this function
-    e->right_operand->left_operand->element.token = VARIABLE; // left node of the function is a variable
+    e->right_operand->left_operand->element.token = OPERATOR; // left node of the function is an operator
+    e->right_operand->left_operand->element.value.operators = MULTIPLY;
+    e->right_operand->left_operand->right_operand->element.token = REAL;
+    e->right_operand->left_operand->left_operand->element.token = VARIABLE;
+    e->right_operand->left_operand->right_operand->element.value.real = 2;
     e->left_operand->element.token = FUNCTION; //left node is a function
     e->left_operand->element.value.functions = SIN; // value of this function
     e->left_operand->left_operand->element.token = REAL; // left node of this function is a real
     e->left_operand->left_operand->element.value.real = 9; //value of this real
+
     e->left_operand->right_operand = NULL; // assigning NULL to every sons of node without sons
     e->left_operand->left_operand->left_operand = NULL;
     e->left_operand->left_operand->right_operand = NULL;
     e->right_operand->right_operand = NULL;
-    e->right_operand->left_operand->right_operand = NULL;
-    e->right_operand->left_operand->left_operand = NULL;
+    e->right_operand->left_operand->right_operand->right_operand = NULL;
+    e->right_operand->left_operand->right_operand->left_operand = NULL;
+    e->right_operand->left_operand->left_operand->right_operand = NULL;
+    e->right_operand->left_operand->left_operand->left_operand = NULL;
+    */
+
+
+    /*
+    // exp(x) / cos(2x)
+    e->right_operand = malloc(sizeof(struct entitySt)); //allocating memory to the tree
+    e->left_operand = malloc(sizeof(struct entitySt));
+    e->right_operand->left_operand = malloc(sizeof(struct entitySt));
+    e->left_operand->left_operand = malloc(sizeof(struct entitySt));
+    e->left_operand->left_operand->right_operand = malloc(sizeof(struct entitySt));
+    e->left_operand->left_operand->left_operand = malloc(sizeof(struct entitySt));
+
+    e->element.token = OPERATOR; //main node is an operator
+    e->element.value.operators = DIVIDE; // the value of this operator is a divide
+    e->right_operand->element.token = FUNCTION; //right node is a function
+    e->right_operand->element.value.functions = COS; // value of this function
+    e->right_operand->left_operand->element.token = OPERATOR; // left node of the function is an operator
+    e->right_operand->left_operand->element.value.operators = MULTIPLY;
+    e->right_operand->left_operand->right_operand->element.token = REAL;
+    e->right_operand->left_operand->left_operand->element.token = VARIABLE;
+    e->right_operand->left_operand->right_operand->element.value.real = 2;
+    e->left_operand->element.token = FUNCTION; //left node is a function
+    e->left_operand->element.value.functions = EXP; // value of this function
+    e->left_operand->left_operand->element.token = VARIABLE; // left node of this function is a variable
+
+    e->left_operand->right_operand = NULL; // assigning NULL to every sons of node without sons
+    e->left_operand->left_operand->left_operand = NULL;
+    e->left_operand->left_operand->right_operand = NULL;
+    e->right_operand->right_operand = NULL;
+    e->right_operand->left_operand->right_operand->right_operand = NULL;
+    e->right_operand->left_operand->right_operand->left_operand = NULL;
+    e->right_operand->left_operand->left_operand->right_operand = NULL;
+    e->right_operand->left_operand->left_operand->left_operand = NULL;
+    */
 
     r = result(e, 0.5); // calling the function that calculates f(x)
     res = r.value; //assigning the correct value to the returned value
