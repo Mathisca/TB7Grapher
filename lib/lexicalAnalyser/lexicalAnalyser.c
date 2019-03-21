@@ -273,6 +273,7 @@ ElementList RecognizeLexem(
     ElementList fun_e = NULL;
 
     while (chaine[*i] != '\0') {
+        op_e = RecognizeLexemOperators(e, chaine, i);
         if (op_e != NULL) {
             list->nextElement = op_e;
         } else {
