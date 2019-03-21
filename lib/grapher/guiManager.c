@@ -68,7 +68,6 @@ static int createWindow() {
     }
 
     SDL_SetWindowResizable(gWindow, SDL_TRUE);
-
     return 1;
 }
 
