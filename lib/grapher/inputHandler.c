@@ -72,7 +72,7 @@ void processConsoleInstructions() {
         int select = 0;
         int R = 255, G = 0, B = 0, A = 255; // default color
 
-        printf("Bienvenue sur TB7 Plotter, que voulez-vous faire? \n");
+        printf("\nBienvenue sur TB7 Plotter, que voulez-vous faire? \n");
         printf("Veuillez entrer votre expression et appuyer sur entrée. \n");
 
         char *function = malloc(sizeof(char) * 100);

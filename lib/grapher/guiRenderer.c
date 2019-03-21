@@ -270,10 +270,30 @@ void render() {
 
     // If the mouse is somewhere in the graph
     if (mouseX >= graphBeginX) {
-
         // Translated the real mouse position to "mathematical" position
         double mathMouseX = (((mouseX - graphBeginX) * gSpanX) / graphWidth - gSpanX / 2.0);
         double mathMouseY = -((mouseY - height / 2.0) * gSpanY) / height;
+
+        if(gValuesArray != NULL) {
+            Result r = result(gValuesArray->e, mathMouseX);
+
+            SDL_SetRenderDrawColor(getRenderer(), 0, 0, 0, 0xFF);
+
+            if (r.error == NO_ERROR && !isnan(r.value)) {
+                int realFunctionY = (int) (height / 2 - ((r.value * height) / (gSpanY)));
+
+                char *str = malloc(sizeof(char) * 100);
+                sprintf(str, "[%lf, %lf]", mathMouseX, r.value);
+                makeText(str, mouseX + width / 100, realFunctionY + height / 100, width / 10, width / 60);
+                free(str);
+
+
+                SDL_RenderDrawLine(getRenderer(), mouseX, realFunctionY, mouseX, height / 2);
+                SDL_RenderDrawLine(getRenderer(), mouseX, realFunctionY, (int) (graphBeginX + graphWidth / 2),
+                                   realFunctionY);
+            }
+        }
+
 
         // Prints the mathematical position of the mouse in the graph
         char *position = malloc(sizeof(char) * 100);
@@ -287,6 +307,7 @@ void render() {
         free(position);
 
     }
+
 
     SDL_RenderPresent(getRenderer());
 }
