@@ -111,5 +111,6 @@ void freeGraphics() {
     if (gWindow != NULL) {
         SDL_DestroyWindow(gWindow);
         SDL_Quit();
+        exit(0);
     }
 }

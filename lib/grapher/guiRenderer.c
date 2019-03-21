@@ -3,9 +3,9 @@
 static TTF_Font *gFont; // font used in the program
 static ValueArray gValuesArray = NULL; // contains the functions
 
-static double gSpanX = 10.0; // span X of the graph
-static double gSpanY = 10.0; // span Y of the graph
-static int gNbGrad = 10; // number of graduations
+static double gSpanX = DEFAULTSPAN; // span X of the graph
+static double gSpanY = DEFAULTSPAN; // span Y of the graph
+static int gNbGrad = DEFAULTGRAD; // number of graduations
 static int gPrintGrid = 1;
 
 /**
@@ -71,9 +71,18 @@ static void recalculateAll() {
     ValueArray copy = gValuesArray;
 
     while (copy != NULL) {
+        freePoints(copy->p);
         copy->p = processPoints(copy->e);
         copy = copy->nextEntity;
     }
+}
+
+static void freePoints(Point p) {
+    if (p == NULL)
+        return;
+
+    free(p->nextPoint);
+    freePoints(p->nextPoint);
 }
 
 /**
@@ -169,7 +178,7 @@ void nbGradChange(int mod) {
 /**
  * Refreshes display
  */
-void render() {
+static void render() {
     int width, height;
     getWindowWidth(&width, &height);
 

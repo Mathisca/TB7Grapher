@@ -5,11 +5,15 @@
 #include "inputHandler.h"
 
 #define ZOOMFACTOR 10
+#define DEFAULTSPAN 10.0
+#define DEFAULTGRAD 10
 #define PRECISION 10000.0
 
 void *startMainLoop();
 
-void render();
+static void render();
+
+static void freePoints(Point p);
 
 static Point processPoints(Entity e);
 
