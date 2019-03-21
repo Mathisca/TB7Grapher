@@ -134,12 +134,12 @@ Entity createTree(ElementList list) {
         tree->left_operand = createTree(first_expression);
     } else { // CASE 2
         // removing the first element if it's a bracket
-        if (first_elmt->element.token == PAR_OPN) {
+        while (first_elmt->element.token == PAR_OPN) {
             first_elmt = first_elmt->nextElement;
         }
 
         // checking for case
-        switch (first_elmt->element.token) { // TODO all switch case
+        switch (first_elmt->element.token) {
             case VARIABLE:
                 // only creating a node with the variable element
                 tree = createEntity(first_elmt->element);
@@ -163,7 +163,7 @@ Entity createTree(ElementList list) {
                 multiply.value = multiply_u;
                 tree = createEntity(multiply);
                 Valeur u;
-                switch (first_elmt->element.value.operators) { // TODO all switch case
+                switch (first_elmt->element.value.operators) {
                     case MINUS:
                         u.real = -1.0f;
                         break;
@@ -221,6 +221,11 @@ ERRORS syntaxChecker(ElementList list) {
             } else {
                 if (list->nextElement->element.token ==
                     PAR_CLS) { // next to an opening bracket there is a closing bracket => SYNTAX_ERROR
+                    error = SYNTAX_ERROR;
+                    break;
+                } else if (list->nextElement->element.token == OPERATOR &&
+                           (list->nextElement->element.value.operators == DIVIDE ||
+                            list->nextElement->element.value.operators == MULTIPLY)) {
                     error = SYNTAX_ERROR;
                     break;
                 }
@@ -282,8 +287,8 @@ ERRORS syntaxChecker(ElementList list) {
         error = PAR_ERROR;
     }
     // at the end there is an operator, a function or an opening bracket => SYNTAX_ERROR
-    if (prev_elmnt->element.token == OPERATOR || prev_elmnt->element.token == FUNCTION || // TODO sigsev
-                                                                                          prev_elmnt->element.token == PAR_OPN) {
+    if (prev_elmnt->element.token == OPERATOR || prev_elmnt->element.token == FUNCTION ||
+        prev_elmnt->element.token == PAR_OPN) {
         error = SYNTAX_ERROR;
     }
 
