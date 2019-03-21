@@ -9,9 +9,13 @@ Result result(Entity e, double x) {
     r.value = 0; //initializing the structure to return (type of error and value)
     r.error = NO_ERROR; //initializing the error type of the structure
 
-    if (e == NULL || e->element.token == ERROR) { // break case
+    if (e == NULL) { // break case
         r.error = NO_INPUT; // if the tree is empty, or if there is previous errors (syntax...) assigning the type of error : NO_INPUT
-        return r; // returns a structure with an error type and 0 as a value
+        return r;// returns a structure with an error type and 0 as a value
+    } else if (e->element.token == ERROR){
+            r.error = SYNTAX_ERROR;
+            return r;
+        }
     } else {
 
         if (e->element.token == VARIABLE) { //if there is a variable
