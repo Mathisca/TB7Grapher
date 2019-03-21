@@ -137,8 +137,8 @@ void unzoom() {
 void zoom() {
     // Check if we can still zoom
     if (gSpanY - ZOOMFACTOR > 0 && gSpanX - ZOOMFACTOR > 0) {
-        gSpanY -= 10;
-        gSpanX -= 10;
+        gSpanY -= ZOOMFACTOR;
+        gSpanX -= ZOOMFACTOR;
 
         // recalculate everything as the span has changed
         recalculateAll();

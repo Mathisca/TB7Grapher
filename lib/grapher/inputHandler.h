@@ -7,6 +7,8 @@
 
 #include "../lib.h"
 
+#define CHANGEVALUE 2
+
 void processEvents();
 
 static void processKeyDown(SDL_Keysym);

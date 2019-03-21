@@ -43,25 +43,25 @@ static void processKeyDown(SDL_Keysym key) {
 
     switch (code) {
         case (97) : // A
-            nbGradChange(-2);
+            nbGradChange(-CHANGEVALUE);
             break;
         case (122): // Z
-            nbGradChange(2);
+            nbGradChange(CHANGEVALUE);
             break;
         case (113): // Q
             togglePrintGrid();
             break;
         case (1073741906): // uparrow
-            changeYSpan(2);
+            changeYSpan(CHANGEVALUE);
             break;
         case (1073741905): // downarrow
-            changeYSpan(-2);
+            changeYSpan(-CHANGEVALUE);
             break;
         case (1073741904): // left
-            changeXSpan(-2);
+            changeXSpan(-CHANGEVALUE);
             break;
         case (1073741903): // right
-            changeXSpan(2);
+            changeXSpan(CHANGEVALUE);
             break;
         default:
             break;
