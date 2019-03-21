@@ -51,6 +51,18 @@ static void processKeyDown(SDL_Keysym key) {
         case (113): // Q
             togglePrintGrid();
             break;
+        case (1073741906): // uparrow
+            changeYSpan(2);
+            break;
+        case (1073741905): // downarrow
+            changeYSpan(-2);
+            break;
+        case (1073741904): // left
+            changeXSpan(-2);
+            break;
+        case (1073741903): // right
+            changeXSpan(2);
+            break;
         default:
             break;
     }

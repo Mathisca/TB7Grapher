@@ -136,6 +136,20 @@ void zoom() {
     }
 }
 
+void changeXSpan(int change) {
+    if(gSpanX + change > 0)
+        gSpanX += change;
+
+    recalculateAll();
+}
+
+void changeYSpan(int change) {
+    if(gSpanY + change > 0)
+        gSpanY += change;
+
+    recalculateAll();
+}
+
 /**
  * Toggles the grid on the graph
  */

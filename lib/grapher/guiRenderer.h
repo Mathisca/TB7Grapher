@@ -13,6 +13,10 @@ void render();
 
 static Point processPoints(Entity e);
 
+void changeXSpan(int change);
+
+void changeYSpan(int change);
+
 void addEntity(Entity e, char *fct, SDL_Color color);
 
 static void loadResources();
