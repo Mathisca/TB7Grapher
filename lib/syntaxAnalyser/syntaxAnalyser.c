@@ -268,6 +268,12 @@ ERRORS syntaxChecker(ElementList list) {
                         error = SYNTAX_ERROR;
                         break;
                     }
+                } else if (list->nextElement->element.token == OPERATOR &&
+                           (list->element.value.operators == PLUS || list->element.value.operators == MINUS)) {
+                    // an operator (PLUS and MINUS) is followed by another operator different from PLUS and MINUS
+                    error = SYNTAX_ERROR;
+                    break;
+
                 }
             }
         }
