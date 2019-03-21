@@ -23,16 +23,6 @@
  */
 Result result (Entity e, double x);
 
-/**
- * @brief Teste la fonction principale en créant un arbre comportant une fonction, appel de la fonction result pour obtenir f(x)
- *
- * @return f(x)
- *
- * @pre //
- * @post l'abre est crée et la fonction renvoie le résultat du calcul
- * @invariant //
- */
-double test_evaluation ();
 
 
 #endif //TB7GRAPHER_CODEINTERPRETER_H
