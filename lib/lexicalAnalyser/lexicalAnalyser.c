@@ -1,6 +1,8 @@
 #include "lexicalAnalyser.h"
+#include <stdlib.h>
+#include <string.h>
 
-double convertirenreel(char *s) {
+double convertirenreel(char *s) { // convert string to double with atof function
 
     double d;
     d = atof(s);
@@ -8,6 +10,13 @@ double convertirenreel(char *s) {
 
 }
 
+/**
+ * Checks if the character is a real number
+ *
+ * @param e ElementList to be modified
+ * @param *saisie char stroke
+ * @param *i integer to increment to run along the string
+ */
 
 ElementList RecognizeLexemValue(ElementList e, char *saisie, int *i) {
     ElementList el = (ElementList) malloc(sizeof(struct elementListSt));
@@ -17,7 +26,6 @@ ElementList RecognizeLexemValue(ElementList e, char *saisie, int *i) {
     while (1) {
         if ((saisie[*i] <= '9' && saisie[*i] >= '0') || saisie[*i] == '.') {
             str[j] = saisie[*i];
-            str[j+1] = '\0';
             j++;
             (*i)++;
         } else {
@@ -39,6 +47,13 @@ ElementList RecognizeLexemValue(ElementList e, char *saisie, int *i) {
     return el;
 }
 
+/**
+ * Checks if the character is a variable 'x'
+ *
+ * @param e ElementList to be modified
+ * @param *saisie char stroke
+ * @param *i integer to increment to run along the string
+ */
 
 ElementList RecognizeLexemVariable(ElementList e, char *saisie, int *i) {
     ElementList el = (ElementList) malloc(sizeof(struct elementListSt));
@@ -46,15 +61,22 @@ ElementList RecognizeLexemVariable(ElementList e, char *saisie, int *i) {
     if (saisie[*i] == var) {
         el->element.token = VARIABLE;
         Valeur u;
-        el->element.value = u; // TODO ??????
-        el->nextElement = NULL;
+        el->element.value = u;
     } else {
         el = NULL;
     }
     return el;
 }
 
-ElementList RecognizeLexemOperators(ElementList e, char *saisie, int *i) { //Fonction opérateur
+/**
+ * Checks if the character is an operator
+ *
+ * @param e ElementList to be modified
+ * @param *saisie char stroke
+ * @param *i integer to increment to run along the string
+ */
+
+ElementList RecognizeLexemOperators(ElementList e, char *saisie, int *i) {
     Valeur value;
     ElementList el = (ElementList) malloc(sizeof(struct elementListSt));
     switch (saisie[*i]) {
@@ -94,6 +116,14 @@ ElementList RecognizeLexemOperators(ElementList e, char *saisie, int *i) { //Fon
     return el;
 }
 
+/**
+ * Checks if the character is a parenthesis
+ *
+ * @param e ElementList to be modified
+ * @param *saisie char stroke
+ * @param *i integer to increment to run along the string
+ */
+
 ElementList RecognizeLexemParenthesis(ElementList e, char *saisie, int *i) {
     Valeur value;
     ElementList el = (ElementList) malloc(sizeof(struct elementListSt));
@@ -102,14 +132,12 @@ ElementList RecognizeLexemParenthesis(ElementList e, char *saisie, int *i) {
 
         case '(':
             el->element.token = PAR_OPN;
-            el->element.value = value; // TODO value non init!!!
-            el->nextElement = NULL;
+            el->element.value = value;
             break;
 
         case ')':
             el->element.token = PAR_CLS;
-            el->element.value = value; // TODO value non init!!!
-            el->nextElement = NULL;
+            el->element.value = value;
             break;
         default:
             el = NULL;
@@ -117,47 +145,53 @@ ElementList RecognizeLexemParenthesis(ElementList e, char *saisie, int *i) {
     return el;
 }
 
+/**
+ * Checks if the character is a known function
+ *
+ * @param e ElementList to be modified
+ * @param *saisie char stroke
+ * @param *i integer to increment to run along the string
+ */
 
-ElementList
-RecognizeLexemFunction(ElementList e, char *c, int *i) { // fonction permettant de renvoyer  un maillon d'une fonction
+ElementList RecognizeLexemFunction(ElementList e, char *c, int *i) {
     ElementList el = (ElementList) malloc(sizeof(struct elementListSt));
 
-    switch (c[*i]) { //switch pour les différentes premières lettres des fonctions
+    switch (c[*i]) { //switch to check letters
         case 's':
             if (c[*i + 1] == 'i' && c[*i + 2] == 'n') {
-                if (c[*i + 3] == 'c') { // cas pour sinc
+                if (c[*i + 3] == 'c') { // sinc case
                     el->element.token = FUNCTION;
                     el->element.value.functions = SINC;
                     *i = *i + 3;
-                } else if (c[*i + 3] == 'h') { // cas pour sinh
+                } else if (c[*i + 3] == 'h') { // sinh case
                     el->element.token = FUNCTION;
                     el->element.value.functions = SINH;
                     *i = *i + 3;
-                } else { // Cas pour sin
+                } else { // sin case
                     el->element.token = FUNCTION;
                     el->element.value.functions = SIN;
                     *i = *i + 2;
                 }
-            } else if (c[*i + 1] == 'q' && c[*i + 2] == 'r' && c[*i + 3] == 't') { // Cas pour sqrt
+            } else if (c[*i + 1] == 'q' && c[*i + 2] == 'r' && c[*i + 3] == 't') { // sqrt case
                 el->element.token = FUNCTION;
                 el->element.value.functions = SQRT;
                 *i = *i + 3;
-            } else { // Cas limite avec s en 1er lettre n etant pas SIN, SINH, SINHC ou SQRT
+            } else { // Limit case when the string is not recognized
                 el->element.token = ERROR;
                 el->element.value.error = UNRECOGNIZED_CHAR;
             }
             break;
 
         case 'l':
-            if (c[*i + 1] == 'n') { // Cas pour Ln
+            if (c[*i + 1] == 'n') { // Ln case
                 el->element.token = FUNCTION;
                 el->element.value.functions = LN;
                 *i = *i + 1;
-            } else if (c[*i + 1] == 'o' && c[*i + 2] == 'g') { // Cas pour Log
+            } else if (c[*i + 1] == 'o' && c[*i + 2] == 'g') { //  Log case
                 el->element.token = FUNCTION;
                 el->element.value.functions = LOG;
                 *i = *i + 2;
-            } else {// Cas limite pour erreur avec l n'etant ni ln et log
+            } else { // Limit case when the string is not recognized
                 el->element.token = ERROR;
                 el->element.value.error = UNRECOGNIZED_CHAR;
             }
@@ -165,29 +199,29 @@ RecognizeLexemFunction(ElementList e, char *c, int *i) { // fonction permettant 
             break;
 
         case 'a':
-            if (c[*i + 1] == 'b' && c[*i + 2] == 's') {// Cas pour Abs
+            if (c[*i + 1] == 'b' && c[*i + 2] == 's') {// Abs case
                 el->element.token = FUNCTION;
                 el->element.value.functions = ABS;
                 *i = *i + 2;
             } else if (c[*i + 1] == 'r' && c[*i + 2] == 'c') {
-                if (c[*i + 3] == 'c' && c[*i + 4] == 'o' && c[*i + 5] == 's') {// Cas pour Arccos
+                if (c[*i + 3] == 'c' && c[*i + 4] == 'o' && c[*i + 5] == 's') {// Arccos case
                     el->element.token = FUNCTION;
                     el->element.value.functions = ARCCOS;
                     *i = *i + 5;
-                } else if (c[*i + 3] == 's' && c[*i + 4] == 'i' && c[*i + 5] == 'n') { // Cas pour Arcsin
+                } else if (c[*i + 3] == 's' && c[*i + 4] == 'i' && c[*i + 5] == 'n') { // Arcsin case
                     el->element.token = FUNCTION;
                     el->element.value.functions = ARCSIN;
                     *i = *i + 5;
-                } else if (c[*i + 3] == 't' && c[*i + 4] == 'a' && c[*i + 5] == 'n') { // Cas pour Arctan
+                } else if (c[*i + 3] == 't' && c[*i + 4] == 'a' && c[*i + 5] == 'n') { // Arctan case
                     el->element.token = FUNCTION;
                     el->element.value.functions = ARCTAN;
                     *i = *i + 5;
-                } else {//Cas limite pour ARC suivit dautres lettres
+                } else { // Limit case when the string is not recognized
                     el->element.token = ERROR;
                     el->element.value.error = UNRECOGNIZED_FUNCTION;
                     *i = *i + 2;
                 }
-            } else { // Cas limite pour toutes lettre venant apres a si ni ABS ni ARC
+            } else { // Limit case when the string is not recognized
                 el->element.token = ERROR;
                 el->element.value.error = UNRECOGNIZED_CHAR;
             }
@@ -195,20 +229,20 @@ RecognizeLexemFunction(ElementList e, char *c, int *i) { // fonction permettant 
 
         case 'c':
             if (c[*i + 1] == 'o' && c[*i + 2] == 's') {
-                if (c[*i + 3] == 'c') { // Cas pour Cosc
+                if (c[*i + 3] == 'c') { // Cosc case
                     el->element.token = FUNCTION;
                     el->element.value.functions = COSC;
                     *i = *i + 3;
-                } else if (c[*i + 3] == 'h') { // Cas pour Cosh
+                } else if (c[*i + 3] == 'h') { // Cosh case
                     el->element.token = FUNCTION;
                     el->element.value.functions = COSH;
                     *i = *i + 3;
-                } else {  // Cas pour Cos
+                } else {  // Cos case
                     el->element.token = FUNCTION;
                     el->element.value.functions = COS;
                     *i = *i + 2;
                 }
-            } else { // Cas limite pour c différent de cos
+            } else { // Limit case when the string is not recognized
                 el->element.token = ERROR;
                 el->element.value.error = UNRECOGNIZED_FUNCTION;
             }
@@ -217,21 +251,21 @@ RecognizeLexemFunction(ElementList e, char *c, int *i) { // fonction permettant 
 
         case 't':
             if (c[*i + 1] == 'a' && c[*i + 2] == 'n') {
-                if (c[*i + 3] == 'c') { // Cas pour Tanc
+                if (c[*i + 3] == 'c') { //Tanc case
                     el->element.token = FUNCTION;
                     el->element.value.functions = TANC;
                     *i = *i + 3;
-                } else if (c[*i + 3] == 'h') {  // Cas pour Tanh
+                } else if (c[*i + 3] == 'h') {  // Tanh case
                     el->element.token = FUNCTION;
                     el->element.value.functions = TANH;
                     *i = *i + 3;
-                } else { // Cas pour Tan
+                } else { // Tan case
                     el->element.token = FUNCTION;
                     el->element.value.functions = TAN;
                     *i = *i + 2;
                 }
 
-            } else {// Cas limite pour c différent de tan
+            } else { // Limit case when the string is not recognized
                 el->element.token = ERROR;
                 el->element.value.error = UNRECOGNIZED_FUNCTION;
             }
@@ -239,11 +273,11 @@ RecognizeLexemFunction(ElementList e, char *c, int *i) { // fonction permettant 
             break;
 
         case 'e':
-            if (c[*i + 1] == 'x' && c[*i + 2] == 'p') { // Cas pour Exp
+            if (c[*i + 1] == 'x' && c[*i + 2] == 'p') { // Exp case
                 el->element.token = FUNCTION;
                 el->element.value.functions = EXP;
                 *i = *i + 2;
-            } else {// Cas limite pour e différent de exp
+            } else { // Limit case when the string is not recognized
                 el->element.token = ERROR;
                 el->element.value.error = UNRECOGNIZED_CHAR;
             }
@@ -252,19 +286,20 @@ RecognizeLexemFunction(ElementList e, char *c, int *i) { // fonction permettant 
         default :
             el = NULL;
     }
-    if (el != NULL) {
-        el->nextElement = NULL;
-    }
     return el;
 }
 
-ElementList RecognizeLexem(
-        char *chaine) { // Fonction princial de l analyseur, appelle chaque fonction dans un while permettant de parcourir la chaine de caractères
+/**
+ * Recognizes the mathemathical function from a char stroke
+ *
+ * @param *chaine char stroke
+ */
+
+ElementList RecognizeLexem(char *chaine) {
     ElementList e = NULL;
     int *i = (int *) malloc(sizeof(int));
     *i = 0;
     ElementList list = (ElementList) malloc(sizeof(struct elementListSt));
-    list->nextElement = NULL;
     ElementList copy = list;
 
     ElementList op_e = NULL;
@@ -293,31 +328,19 @@ ElementList RecognizeLexem(
                 } else {
                     par_e = RecognizeLexemParenthesis(e, chaine, i);
                     if (par_e != NULL) {
-                        list->nextElement = par_e;
+                        list->nextElement = par_e; // TODO sigsegv
                     } else {
                         fun_e = RecognizeLexemFunction(e, chaine, i);
                         if (fun_e != NULL) {
-                            list->nextElement = fun_e;
-                        } else {
-                            list->nextElement = (ElementList) malloc(sizeof(struct elementListSt));
-                            Element element;
-                            element.token = ERROR;
-                            element.value.error = UNRECOGNIZED_CHAR;
-                            list->nextElement->element = element;
-                            list->nextElement->nextElement = NULL;
+                            list->nextElement = fun_e; // TODO sigsegv aussi
                         }
                     }
                 }
             }
         }
-        list = list->nextElement;
+        list = list->nextElement; // TODO sigsegv
         (*i)++;
     }
 
     return copy->nextElement;
-}
-
-ElementList Test() {
-    char chaine[50] = "tan(x+23.5)*3";
-    return RecognizeLexem(chaine);
 }
