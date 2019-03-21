@@ -15,6 +15,7 @@ void processEvents() {
                 processMouseWheel(event.wheel);
                 break;
             default:
+                //
                 break;
         }
     }
@@ -25,7 +26,7 @@ void processEvents() {
  * @param event SDL event
  */
 void processMouseWheel(SDL_MouseWheelEvent event) {
-    if (event.y == 1) { // molette haute
+    if (event.y == 1) { // scroll up
         zoom();
     } else { // scroll down
         unzoom();
@@ -48,10 +49,7 @@ static void processKeyDown(SDL_Keysym key) {
             nbGradChange(2);
             break;
         case (113): // Q
-            //unzoom(2);
-            break;
-        case (115): // S
-            //nbGradChange(2);
+            togglePrintGrid();
             break;
         default:
             break;
@@ -60,8 +58,6 @@ static void processKeyDown(SDL_Keysym key) {
 
 
 void processConsoleInstructions() {
-
-    // Équivalent enum ERRORS -> texte lisible
     const char *errorNames[] = {"aucune erreur",
                                 "pas de fonction entrée",
                                 "division par zéro",
@@ -95,16 +91,16 @@ void processConsoleInstructions() {
         SDL_Color color = {(Uint8) R, (Uint8) G, (Uint8) B, (Uint8) A};
         ElementList list = RecognizeLexem(function);
 
-        if (list == NULL)
+        if (list == NULL) // check if analytic is OK
             fprintf(stderr, "Une erreur est survenue.\n");
-        else if (list->element.token == ERROR) {
+        else if (list->element.token == ERROR) { // check if analytic is OK
             fprintf(stderr, "Une erreur est survenue : %s\n", errorNames[list->element.value.error]);
         } else {
             Entity e = syntaxBuild(list);
 
-            if (e == NULL)
+            if (e == NULL) // check if syntax is OK
                 fprintf(stderr, "Une erreur est survenue.\n");
-            else if (e->element.token == ERROR) {
+            else if (e->element.token == ERROR) { // check if syntax is OK
                 fprintf(stderr, "Une erreur est survenue : %s\n", errorNames[e->element.value.error]);
             } else {
                 printf("Fonction ajoutée avec succès !\n");

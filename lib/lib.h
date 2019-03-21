@@ -5,13 +5,14 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "tokens.h"
 #include <time.h>
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+
+#include "tokens.h"
 
 #include "codeInterpreter/codeInterpreter.h"
 #include "lexicalAnalyser/lexicalAnalyser.h"

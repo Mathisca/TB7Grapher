@@ -17,6 +17,8 @@ void addEntity(Entity e, char *fct, SDL_Color color);
 
 static void loadResources();
 
+void togglePrintGrid();
+
 static void recalculateAll();
 
 static void makeText(char *text, int x, int y, int w, int h);
