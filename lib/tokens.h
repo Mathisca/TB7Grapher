@@ -5,12 +5,10 @@
 
 
 typedef enum TOKENS {
-    NO_TOKEN,
     REAL,
     OPERATOR,
     FUNCTION,
     ERROR,
-    END,
     PAR_OPN,
     PAR_CLS,
     VARIABLE
@@ -39,15 +37,15 @@ typedef enum FUNCTIONS {
 
 typedef enum OPERATORS {
     MULTIPLY,
-    DIVIDE, // TODO c'est inversé
+    DIVIDE,
     PLUS,
     MINUS,
     POWER
 } OPERATORS;
 
 typedef enum ERRORS {
-    NO_INPUT,
     NO_ERROR,
+    NO_INPUT,
     DIV_BY_ZERO,
     NON_REAL_OPERATION,
     UNRECOGNIZED_CHAR,

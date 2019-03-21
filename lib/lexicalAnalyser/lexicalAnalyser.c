@@ -45,7 +45,7 @@ ElementList RecognizeLexemVariable(ElementList e, char *saisie, int *i) {
     if (saisie[*i] == var) {
         el->element.token = VARIABLE;
         Valeur u;
-        el->element.value = u;
+        el->element.value = u; // TODO ??????
         el->nextElement = NULL;
     } else {
         el = NULL;
@@ -101,13 +101,13 @@ ElementList RecognizeLexemParenthesis(ElementList e, char *saisie, int *i) {
 
         case '(':
             el->element.token = PAR_OPN;
-            el->element.value = value;
+            el->element.value = value; // TODO value non init!!!
             el->nextElement = NULL;
             break;
 
         case ')':
             el->element.token = PAR_CLS;
-            el->element.value = value;
+            el->element.value = value; // TODO value non init!!!
             el->nextElement = NULL;
             break;
         default:
@@ -273,12 +273,6 @@ ElementList RecognizeLexem(
     ElementList fun_e = NULL;
 
     while (chaine[*i] != '\0') {
-        op_e = NULL;
-        val_e = NULL;
-        var_e = NULL;
-        par_e = NULL;
-        fun_e = NULL;
-        op_e = RecognizeLexemOperators(e, chaine, i);
         if (op_e != NULL) {
             list->nextElement = op_e;
         } else {

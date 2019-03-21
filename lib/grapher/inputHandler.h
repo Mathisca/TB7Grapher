@@ -11,9 +11,7 @@ void processEvents();
 
 static void processKeyDown(SDL_Keysym);
 
-static void processMouseMotion(SDL_MouseMotionEvent key);
-
-static void processMousePress(SDL_MouseButtonEvent key);
+void processConsoleInstructions();
 
 void processMouseWheel(SDL_MouseWheelEvent event);
 

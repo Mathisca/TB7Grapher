@@ -102,7 +102,6 @@ Entity createTree(ElementList list) {
         // Separating the two different expression next to the operator
         ElementList first_expression = first_elmt;
         ElementList second_expression;
-        ElementList prev_elmnt;
         int j = 0;
 
         list = first_expression;
@@ -139,7 +138,7 @@ Entity createTree(ElementList list) {
         }
 
         // checking for case
-        switch (first_elmt->element.token) {
+        switch (first_elmt->element.token) { // TODO all switch case
             case VARIABLE:
                 // only creating a node with the variable element
                 tree = createEntity(first_elmt->element);
@@ -163,7 +162,7 @@ Entity createTree(ElementList list) {
                 multiply.value = multiply_u;
                 tree = createEntity(multiply);
                 Valeur u;
-                switch (first_elmt->element.value.operators) {
+                switch (first_elmt->element.value.operators) { // TODO all switch case
                     case MINUS:
                         u.real = -1.0f;
                         break;
@@ -200,7 +199,6 @@ Entity createTree(ElementList list) {
  * @author ALBRECHT Jérémy
  */
 ERRORS syntaxChecker(ElementList list) {
-    ElementList firstElement = list; // create a copy of the first element
     int opened_par = 0;
     int closed_par = 0;
     ERRORS error = NO_ERROR; // at first we consider there is no error
@@ -208,7 +206,7 @@ ERRORS syntaxChecker(ElementList list) {
     // checking the begin of the list for rule 6
     if (list->element.token == OPERATOR) {
         if (list->element.value.operators != PLUS && list->element.value.operators != MINUS) {
-            return error = SYNTAX_ERROR;
+            return SYNTAX_ERROR;
         }
     }
 

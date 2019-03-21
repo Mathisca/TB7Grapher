@@ -12,7 +12,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include "logger/log.h"
 
 #include "codeInterpreter/codeInterpreter.h"
 #include "lexicalAnalyser/lexicalAnalyser.h"

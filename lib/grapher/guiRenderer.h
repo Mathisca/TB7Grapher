@@ -4,17 +4,20 @@
 #include "../lib.h"
 #include "inputHandler.h"
 
-void * startMainLoop();
+#define ZOOMFACTOR 10
+#define PRECISION 10000.0
+
+void *startMainLoop();
 
 void render();
 
-Point processPoints(Entity e);
+static Point processPoints(Entity e);
 
 void addEntity(Entity e, char *fct, SDL_Color color);
 
 static void loadResources();
 
-void recalculateAll();
+static void recalculateAll();
 
 static void makeText(char *text, int x, int y, int w, int h);
 

@@ -1,34 +1,15 @@
 #include "inputHandler.h"
 
-char *text = NULL;
-
-void processMouseWheel(SDL_MouseWheelEvent event);
-
+/**
+ * Gère les events SDL
+ */
 void processEvents() {
     SDL_Event event;
 
-    if (text == NULL) {
-        text = malloc(sizeof(char) * 1024);
-        text[0] = '\0';
-    }
-
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
-            case SDL_QUIT:
-                exit(0);
             case SDL_KEYDOWN:
                 processKeyDown(event.key.keysym);
-                break;
-            case SDL_MOUSEMOTION:
-                processMouseMotion(event.motion);
-                break;
-            case SDL_MOUSEBUTTONUP:
-                processMousePress(event.button);
-                break;
-            case SDL_TEXTINPUT:
-                strcat(text, event.text.text);
-                log_info("%s", text);
-                log_info("SDL_IsTextInputActive : %i", SDL_IsTextInputActive);
                 break;
             case SDL_MOUSEWHEEL:
                 processMouseWheel(event.wheel);
@@ -39,24 +20,23 @@ void processEvents() {
     }
 }
 
+/**
+ * Appelé lors d'un event molette souris
+ * @param event event SDL
+ */
 void processMouseWheel(SDL_MouseWheelEvent event) {
     if (event.y == -1) { // molette bas
         zoom();
-    } else {
+    } else { // molette haute
         unzoom();
     }
 
 }
 
-static void processMousePress(SDL_MouseButtonEvent key) {
-}
-
-
-static void processMouseMotion(SDL_MouseMotionEvent key) {
-
-}
-
-
+/**
+ * Appelé lors d'un appui clavier
+ * @param key touche appuyée
+ */
 static void processKeyDown(SDL_Keysym key) {
     SDL_Keycode code = key.sym;
 
@@ -67,9 +47,72 @@ static void processKeyDown(SDL_Keysym key) {
         case (122): // Z
             nbGradChange(2);
             break;
+        case (113): // Q
+            nbGradChange(2);
+            break;
+        case (115): // S
+            nbGradChange(2);
+            break;
+        default:
+            break;
+    }
+}
+
+
+void processConsoleInstructions() {
+
+    // Équivalent enum ERRORS -> texte lisible
+    const char *errorNames[] = {"aucune erreur",
+                                "pas de fonction entrée",
+                                "division par zéro",
+                                "opération non réelle",
+                                "caractère non reconnu",
+                                "fonction non reconnue",
+                                "erreur de syntaxe",
+                                "erreur de parenthèse"};
+
+    while (!SDL_QuitRequested()) {
+
+        int select = 0;
+        int R = 255, G = 0, B = 0, A = 255; // default color
+
+        printf("Bienvenue sur TB7 Plotter, que voulez-vous faire? \n");
+        printf("Veuillez entrer votre expression et appuyer sur entrée. \n");
+
+        char *function = malloc(sizeof(char) * 100);
+        scanf("%s", function);
+
+        printf("Appuyez sur 1 si vous souhaitez choisir la couleur de votre courbe. \n");
+        printf("Appuyez sur 2 pour avoir la couleur par défaut. \n");
+
+        scanf("%d", &select);
+
+        if (select == 1) {
+            printf("Entrez le code RGBA correspondant en appuyant sur Entrée entre chaque code. \n");
+            scanf("%d %d %d %d", &R, &G, &B, &A);
+        }
+
+        SDL_Color color = {(Uint8) R, (Uint8) G, (Uint8) B, (Uint8) A};
+        ElementList list = RecognizeLexem(function);
+
+        if (list == NULL)
+            fprintf(stderr, "Une erreur est survenue.\n");
+        else if (list->element.token == ERROR) {
+            fprintf(stderr, "Une erreur est survenue : %s\n", errorNames[list->element.value.error]);
+        } else {
+            Entity e = syntaxBuild(list);
+
+            if (e == NULL)
+                fprintf(stderr, "Une erreur est survenue.\n");
+            else if (e->element.token == ERROR) {
+                fprintf(stderr, "Une erreur est survenue : %s\n", errorNames[e->element.value.error]);
+            } else {
+                printf("Fonction ajoutée avec succès !\n");
+                addEntity(e, function, color);
+            }
+        }
 
     }
 
-
-    log_info("Code : %i", code);
 }
+

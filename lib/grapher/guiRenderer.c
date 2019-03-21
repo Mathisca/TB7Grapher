@@ -1,13 +1,16 @@
 #include "guiRenderer.h"
 
-TTF_Font *gFont;  //this opens a font style and sets a size
-ValueArray gValuesArray = NULL;
+static TTF_Font *gFont;
+static ValueArray gValuesArray = NULL;
 
-double gSpanX = 10.0;
-double gSpanY = 10.0;
-int gNbGrad = 10;
+static double gSpanX = 10.0;
+static double gSpanY = 10.0;
+static int gNbGrad = 10;
 
-void * startMainLoop() {
+/**
+ * Démarrage du loop principal
+ */
+void *startMainLoop() {
     loadResources();
 
     while (!SDL_QuitRequested()) {
@@ -18,26 +21,49 @@ void * startMainLoop() {
     freeGraphics();
 }
 
+/**
+ * Chargement des ressources graphiques (police d'écriture)
+ */
 static void loadResources() {
+    // Ouverture de la police
     gFont = TTF_OpenFont("fonts/opensans.ttf", 100);
+
+    // Vérification
     if (gFont == NULL) {
-        log_fatal("Font error : %s", TTF_GetError());
+        fprintf(stderr, "Erreur lors de l'ouverture de la police : %s\n", TTF_GetError());
         exit(1);
     }
 }
 
+/**
+ * Ajoute une fonction au graph
+ *
+ * @param e fonction à ajouter
+ * @param fct nom d'affichage de la fonction
+ * @param color couleur de la fonction
+ */
 void addEntity(Entity e, char *fct, SDL_Color color) {
+    if(e->element.token == ERROR && e->element.value.error != NO_ERROR) {
+        fprintf(stderr, "La fonction passée au grapheur était erronnée !\n");
+        return;
+    }
+
     ValueArray newArray = malloc(sizeof(struct valueArraySt));
 
     newArray->e = e;
-    newArray->p = processPoints(e);
-    newArray->nextEntity = gValuesArray;
+    newArray->p = processPoints(e); // On calcule directement les points de la fonction ici
     newArray->color = color;
     newArray->printableValue = fct;
+
+    newArray->nextEntity = gValuesArray;
     gValuesArray = newArray;
 }
 
-void recalculateAll() {
+/**
+ * Recalcule tous les points des courbes
+ * (en cas de changement de span par exemple)
+ */
+static void recalculateAll() {
     ValueArray copy = gValuesArray;
 
     while (copy != NULL) {
@@ -46,11 +72,19 @@ void recalculateAll() {
     }
 }
 
-
-Point processPoints(Entity e) {
+/**
+ * Calcule les points d'une fonction
+ * @param e fonction à calculer
+ * @return les points calculés
+ */
+static Point processPoints(Entity e) {
     Point p = NULL;
 
-    for (double i = -gSpanX / 2.0; i < gSpanX / 2.0; i += gSpanX / 10000.0) {
+    /* On évalue les valeurs de la fonction du min du graphique au max.
+     * Le pas est de gSpanX/PRECISION pour avoir toujours suffisamment de points
+     * pour tracer la courbe de manière continue
+     */
+    for (double i = -gSpanX / 2.0; i < gSpanX / 2.0; i += gSpanX / PRECISION) {
         Result r = result(e, i);
 
         if (r.error == NO_ERROR) {
@@ -72,30 +106,40 @@ Point processPoints(Entity e) {
     return p;
 }
 
-
+/**
+ * Augmente la taille de graphique affichée
+ */
 void unzoom() {
-    gSpanY += 10;
-    gSpanX += 10;
+    gSpanY += ZOOMFACTOR;
+    gSpanX += ZOOMFACTOR;
 
     recalculateAll();
 }
 
+/**
+ * Réduit la taille de graphiqe affichée
+ */
 void zoom() {
-    if (gSpanX == 0 || gSpanY == 0) {
-        gSpanX = 1; // TODO revoir ça
-        gSpanY = 1;
-    }
-    gSpanY -= 10;
-    gSpanX -= 10;
+    if (gSpanY - ZOOMFACTOR > 0 && gSpanX - ZOOMFACTOR > 0) {
+        gSpanY -= 10;
+        gSpanX -= 10;
 
-    recalculateAll();
+        recalculateAll();
+    }
 }
 
+/**
+ * Modifie le nombre de graduations
+ * @param mod nombre de graduations à modifier
+ */
 void nbGradChange(int mod) {
     if (gNbGrad + mod > 0)
         gNbGrad += mod;
 }
 
+/**
+ * Actualise l'affichage
+ */
 void render() {
     int width, height;
     getWindowWidth(&width, &height);
@@ -167,14 +211,12 @@ void render() {
 
     }
 
+
     makeText("TB7Plotter", 50, 0, width / 3 - 100, height / 10);
-    //makeText("R : Entrer une nouvelle expression", 30, 200, width / 4 - 60, 0);
     makeText("x", width - width / 70, height / 2 + height / 600, width / 75, width / 50);
     makeText("f(x)", graphMidX - width / 30, height / 700, width / 50, width / 50);
 
     // Plotter creation
-
-
     ValueArray back = gValuesArray;
     for (int j = 0; back != NULL; ++j) {
         Point p = back->p;
@@ -197,7 +239,7 @@ void render() {
         char *printableString = malloc(sizeof(char) * 100);
 
         sprintf(printableString, "f(x) = %s", back->printableValue);
-        makeText(printableString, (int) (2.3 * xLine), yLine - 10, width/200.0*strlen(printableString), 30);
+        makeText(printableString, (int) (2.3 * xLine), yLine - 10, (int) (width / 200.0 * strlen(printableString)), 30);
 
         back = back->nextEntity;
     }
@@ -226,10 +268,17 @@ void render() {
     }
 
     SDL_RenderPresent(getRenderer());
-
-
 }
 
+/**
+ * Affiche du texte à l'écran
+ *
+ * @param text texte à afficher
+ * @param x position x du texte
+ * @param y position y du texte
+ * @param w largeur du texte
+ * @param h hauteur du texte
+ */
 static void makeText(char *text, int x, int y, int w, int h) {
     SDL_Color black = {0, 0, 0};
 
@@ -237,14 +286,13 @@ static void makeText(char *text, int x, int y, int w, int h) {
     SDL_Texture *Message = SDL_CreateTextureFromSurface(getRenderer(),
                                                         surfaceMessage); //now you can convert it into a texture
 
-    SDL_Rect Message_rect; //create a rect
-    Message_rect.x = x;  //controls the rect's x coordinate
-    Message_rect.y = y; // controls the rect's y coordinate
-    Message_rect.w = w; // controls the width of the rect
-    Message_rect.h = h; // controls the height of the rect
+    SDL_Rect textRect;
+    textRect.x = x;
+    textRect.y = y;
+    textRect.w = w;
+    textRect.h = h;
 
-    SDL_RenderCopy(getRenderer(), Message, NULL, &Message_rect);
-
+    SDL_RenderCopy(getRenderer(), Message, NULL, &textRect);
 
     SDL_FreeSurface(surfaceMessage);
     SDL_DestroyTexture(Message);
