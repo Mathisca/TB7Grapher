@@ -170,8 +170,8 @@ double test_evaluation() { //test function of the program : creating a tree and 
     e->left_operand = malloc(sizeof(struct entitySt));
     e->right_operand->left_operand = malloc(sizeof(struct entitySt));
     e->left_operand->left_operand = malloc(sizeof(struct entitySt));
-    e->left_operand->left_operand->right_operand = malloc(sizeof(struct entitySt));
-    e->left_operand->left_operand->left_operand = malloc(sizeof(struct entitySt));
+    e->right_operand->left_operand->right_operand = malloc(sizeof(struct entitySt));
+    e->right_operand->left_operand->left_operand = malloc(sizeof(struct entitySt));
 
     e->element.token = OPERATOR; //main node is an operator
     e->element.value.operators = MULTIPLY; // the value of this operator is a multiply
@@ -204,8 +204,8 @@ double test_evaluation() { //test function of the program : creating a tree and 
     e->left_operand = malloc(sizeof(struct entitySt));
     e->right_operand->left_operand = malloc(sizeof(struct entitySt));
     e->left_operand->left_operand = malloc(sizeof(struct entitySt));
-    e->left_operand->left_operand->right_operand = malloc(sizeof(struct entitySt));
-    e->left_operand->left_operand->left_operand = malloc(sizeof(struct entitySt));
+    e->right_operand->left_operand->right_operand = malloc(sizeof(struct entitySt));
+    e->right_operand->left_operand->left_operand = malloc(sizeof(struct entitySt));
 
     e->element.token = OPERATOR; //main node is an operator
     e->element.value.operators = DIVIDE; // the value of this operator is a divide
