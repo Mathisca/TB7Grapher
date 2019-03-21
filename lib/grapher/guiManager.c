@@ -98,7 +98,7 @@ void getWindowWidth(int *w, int *h) {
 }
 
 /**
- * Récupère le renderer du programme
+ * Returns the main renderer
  * @return renderer
  */
 SDL_Renderer *getRenderer() {
@@ -106,7 +106,7 @@ SDL_Renderer *getRenderer() {
 }
 
 /**
- * Libère la mémoire utilisée par SDL
+ * Frees the memory used by SDL
  */
 void freeGraphics() {
     if (gWindow != NULL) {

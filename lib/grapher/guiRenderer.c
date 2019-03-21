@@ -8,7 +8,7 @@ static double gSpanY = 10.0;
 static int gNbGrad = 10;
 
 /**
- * Démarrage du loop principal
+ * Stars the main loop
  */
 void *startMainLoop() {
     loadResources();
@@ -22,13 +22,13 @@ void *startMainLoop() {
 }
 
 /**
- * Chargement des ressources graphiques (police d'écriture)
+ * Loads the graphical resources (fonts)
  */
 static void loadResources() {
-    // Ouverture de la police
+    // Opens the font
     gFont = TTF_OpenFont("fonts/opensans.ttf", 100);
 
-    // Vérification
+    // Checks if the font is correctly open
     if (gFont == NULL) {
         fprintf(stderr, "Erreur lors de l'ouverture de la police : %s\n", TTF_GetError());
         exit(1);
@@ -36,10 +36,10 @@ static void loadResources() {
 }
 
 /**
- * Ajoute une fonction au graph
+ * Adds a function to the graph
  *
- * @param e fonction à ajouter
- * @param fct nom d'affichage de la fonction
+ * @param e function to add
+ * @param fct nom
  * @param color couleur de la fonction
  */
 void addEntity(Entity e, char *fct, SDL_Color color) {
