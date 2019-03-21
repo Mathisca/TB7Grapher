@@ -41,4 +41,6 @@ void testAnalyst();
 
 void testInterpreter();
 
+double test_evaluation ();
+
 #endif //TB7GRAPHER_TEST_H
