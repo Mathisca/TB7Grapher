@@ -1,7 +1,7 @@
 #include "inputHandler.h"
 
 /**
- * Gère les events SDL
+ * Handles SDL Events
  */
 void processEvents() {
     SDL_Event event;
@@ -21,21 +21,21 @@ void processEvents() {
 }
 
 /**
- * Appelé lors d'un event molette souris
- * @param event event SDL
+ * Called when a mouse wheel event occurs
+ * @param event SDL event
  */
 void processMouseWheel(SDL_MouseWheelEvent event) {
     if (event.y == 1) { // molette haute
         zoom();
-    } else { // molette bas
+    } else { // scroll down
         unzoom();
     }
 
 }
 
 /**
- * Appelé lors d'un appui clavier
- * @param key touche appuyée
+ * Called when a keyboard key is pressed
+ * @param key keyboard key pressed
  */
 static void processKeyDown(SDL_Keysym key) {
     SDL_Keycode code = key.sym;

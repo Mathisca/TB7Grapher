@@ -107,7 +107,7 @@ static Point processPoints(Entity e) {
 }
 
 /**
- * Augmente la taille de graphique affichée
+ * Increases the size of the displayed graph
  */
 void unzoom() {
     gSpanY += ZOOMFACTOR;
@@ -117,7 +117,7 @@ void unzoom() {
 }
 
 /**
- * Réduit la taille de graphiqe affichée
+ * Reduces the size of the displayed graph
  */
 void zoom() {
     if (gSpanY - ZOOMFACTOR > 0 && gSpanX - ZOOMFACTOR > 0) {
@@ -129,8 +129,8 @@ void zoom() {
 }
 
 /**
- * Modifie le nombre de graduations
- * @param mod nombre de graduations à modifier
+ * Modifies the number of graduations
+ * @param mod numbers of graduations to modify
  */
 void nbGradChange(int mod) {
     if (gNbGrad + mod > 0)
@@ -138,7 +138,7 @@ void nbGradChange(int mod) {
 }
 
 /**
- * Actualise l'affichage
+ * Refreshes display
  */
 void render() {
     int width, height;
@@ -211,7 +211,7 @@ void render() {
 
     }
 
-
+    // Information display
     makeText("TB7Plotter", 50, 0, width / 3 - 100, height / 10);
     makeText("x", width - width / 70, height / 2 + height / 600, width / 75, width / 50);
     makeText("f(x)", graphMidX - width / 30, height / 700, width / 50, width / 50);
@@ -276,13 +276,13 @@ void render() {
 }
 
 /**
- * Affiche du texte à l'écran
+ * Displays text on screen
  *
- * @param text texte à afficher
- * @param x position x du texte
- * @param y position y du texte
- * @param w largeur du texte
- * @param h hauteur du texte
+ * @param text text to display
+ * @param x x position of text
+ * @param y y position of text
+ * @param w width of text
+ * @param h height of text
  */
 static void makeText(char *text, int x, int y, int w, int h) {
     SDL_Color black = {0, 0, 0};
