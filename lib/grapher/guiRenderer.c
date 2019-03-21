@@ -8,7 +8,7 @@ static double gSpanY = 10.0;
 static int gNbGrad = 10;
 
 /**
- * Stars the main loop
+ * Starts the main loop
  */
 void *startMainLoop() {
     loadResources();
@@ -39,8 +39,8 @@ static void loadResources() {
  * Adds a function to the graph
  *
  * @param e function to add
- * @param fct nom
- * @param color couleur de la fonction
+ * @param fct name of the function
+ * @param color color of the function
  */
 void addEntity(Entity e, char *fct, SDL_Color color) {
     if(e->element.token == ERROR && e->element.value.error != NO_ERROR) {
@@ -60,8 +60,8 @@ void addEntity(Entity e, char *fct, SDL_Color color) {
 }
 
 /**
- * Recalcule tous les points des courbes
- * (en cas de changement de span par exemple)
+ * Recalculates all the points
+ * (in case of a span change)
  */
 static void recalculateAll() {
     ValueArray copy = gValuesArray;
@@ -73,9 +73,9 @@ static void recalculateAll() {
 }
 
 /**
- * Calcule les points d'une fonction
- * @param e fonction à calculer
- * @return les points calculés
+ * Calculates all the points of a function
+ * @param e function to calculate the points toq
+ * @return the calculated points
  */
 static Point processPoints(Entity e) {
     Point p = NULL;
