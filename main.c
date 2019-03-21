@@ -12,7 +12,7 @@ int main() {
 //    printf("f(x) = %lf", res);
 
     // ** TEST PART 2
-//    testSyntax();
+    testSyntax();
 //    testInterpreter();
 
     return 0;

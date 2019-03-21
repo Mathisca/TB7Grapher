@@ -293,9 +293,11 @@ ERRORS syntaxChecker(ElementList list) {
         error = PAR_ERROR;
     }
     // at the end there is an operator, a function or an opening bracket => SYNTAX_ERROR
-    if (prev_elmnt->element.token == OPERATOR || prev_elmnt->element.token == FUNCTION ||
-        prev_elmnt->element.token == PAR_OPN) {
-        error = SYNTAX_ERROR;
+    if(prev_elmnt != NULL) {
+        if (prev_elmnt->element.token == OPERATOR || prev_elmnt->element.token == FUNCTION ||
+            prev_elmnt->element.token == PAR_OPN) {
+            error = SYNTAX_ERROR;
+        }
     }
 
     return error;

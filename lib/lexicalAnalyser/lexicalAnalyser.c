@@ -26,6 +26,7 @@ ElementList RecognizeLexemValue(ElementList e, char *saisie, int *i) {
     while (1) {
         if ((saisie[*i] <= '9' && saisie[*i] >= '0') || saisie[*i] == '.') {
             str[j] = saisie[*i];
+            str[j+1] = '\0';
             j++;
             (*i)++;
         } else {
