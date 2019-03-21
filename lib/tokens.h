@@ -1,7 +1,7 @@
 #ifndef TB7GRAPHER_TOKENS_H
 #define TB7GRAPHER_TOKENS_H
 
-#include <SDL2/SDL.h>
+//#include <SDL2/SDL.h>
 
 
 typedef enum TOKENS {
@@ -92,7 +92,7 @@ typedef struct valueArraySt *ValueArray;
 struct valueArraySt {
     Point p;
     Entity e;
-    SDL_Color color;
+//    SDL_Color color;
     char * printableValue;
 
     ValueArray nextEntity;

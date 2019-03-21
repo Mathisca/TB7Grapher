@@ -1,4 +1,4 @@
-#include "../tokens.h"
+#include "../lib.h"
 
 #ifndef TB7GRAPHER_LEXICALANALYSER_H
 #define TB7GRAPHER_LEXICALANALYSER_H
