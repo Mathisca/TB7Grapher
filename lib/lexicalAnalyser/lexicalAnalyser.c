@@ -293,11 +293,11 @@ ElementList RecognizeLexem(
                 } else {
                     par_e = RecognizeLexemParenthesis(e, chaine, i);
                     if (par_e != NULL) {
-                        list->nextElement = par_e; // TODO sigsegv
+                        list->nextElement = par_e;
                     } else {
                         fun_e = RecognizeLexemFunction(e, chaine, i);
                         if (fun_e != NULL) {
-                            list->nextElement = fun_e; // TODO sigsegv aussi
+                            list->nextElement = fun_e;
                         } else {
                             list->nextElement = (ElementList) malloc(sizeof(struct elementListSt));
                             Element element;
@@ -310,7 +310,7 @@ ElementList RecognizeLexem(
                 }
             }
         }
-        list = list->nextElement; // TODO sigsegv
+        list = list->nextElement;
         (*i)++;
     }
 
