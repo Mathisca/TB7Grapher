@@ -14,7 +14,7 @@ void startUserInterface() {
 
     // Création du thread qui gère le rendering
     pthread_t thread1;
-    pthread_create();
+    pthread_create(&thread1, NULL, startMainLoop, NULL);
 
     // La console reste sur le thread principal
     processConsoleInstructions();
