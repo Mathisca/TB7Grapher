@@ -29,6 +29,14 @@ Entity syntaxBuild(ElementList);
  */
 ERRORS syntaxChecker(ElementList);
 
+/**
+ * @brief Allocate the memory for a node of a binary tree
+ *
+ * @return an Entity object with left and right son NULL
+ *
+ * @author DELFORGE Bastien
+ * @author ALBRECHT Jérémy
+ */
 Entity createEntity(Element);
 
 /**
@@ -40,4 +48,5 @@ Entity createEntity(Element);
  * @author ALBRECHT Jérémy
  */
 Entity createTree(ElementList);
+
 #endif //TB7GRAPHER_SYNTAXANALYSER_H
