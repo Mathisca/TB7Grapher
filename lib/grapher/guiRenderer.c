@@ -51,7 +51,7 @@ void addEntity(Entity e, char *fct, SDL_Color color) {
     ValueArray newArray = malloc(sizeof(struct valueArraySt));
 
     newArray->e = e;
-    newArray->p = processPoints(e); // On calcule directement les points de la fonction ici
+    newArray->p = processPoints(e); // Calculates points of the function
     newArray->color = color;
     newArray->printableValue = fct;
 
