@@ -223,10 +223,15 @@ void render() {
 
         SDL_SetRenderDrawColor(getRenderer(), back->color.r, back->color.g, back->color.b, back->color.a);
 
-        while (p != NULL) {
+        while (p != NULL && p->nextPoint != NULL) {
             int x1 = (int) (graphWidth + ((graphWidth * p->x) / gSpanX));
             int y1 = (int) (height / 2.0 - ((p->y * height) / (gSpanY)));
-            SDL_RenderDrawPoint(getRenderer(), x1, y1);
+
+            int x2 = (int) (graphWidth + ((graphWidth * p->nextPoint->x) / gSpanX));
+            int y2 = (int) (height / 2.0 - ((p->nextPoint->y * height) / (gSpanY)));
+
+
+            SDL_RenderDrawLine(getRenderer(), x1, y1, x2, y2);
 
             p = p->nextPoint;
         }
