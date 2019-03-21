@@ -454,7 +454,7 @@ double test_evaluation() { //test function of the program : creating a tree and 
     res = r.value; //assigning the correct value to the returned value
 
 
-    // sqrt(x) - 6^x
+    // free sqrt(x) - 6^x
     free(e->right_operand->left_operand);
     free(e->right_operand->right_operand);
     free(e->left_operand->left_operand);
@@ -463,7 +463,7 @@ double test_evaluation() { //test function of the program : creating a tree and 
     free(e);
 
     /*
-    // exp(x) / cos(2x)
+    // free exp(x) / cos(2x)
     free(e->right_operand->left_operand->right_operand );
     free(e->right_operand->left_operand->left_operand );
     free(e->right_operand->left_operand );
