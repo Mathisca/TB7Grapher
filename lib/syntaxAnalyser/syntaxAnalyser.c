@@ -102,6 +102,7 @@ Entity createTree(ElementList list) {
         // Separating the two different expression next to the operator
         ElementList first_expression = first_elmt;
         ElementList second_expression;
+        ElementList prev_elmnt;
         int j = 0;
 
         list = first_expression;
