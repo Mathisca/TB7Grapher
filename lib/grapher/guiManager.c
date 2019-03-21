@@ -5,14 +5,14 @@ static SDL_Renderer *gRenderer = NULL;
 static SDL_Window *gWindow;
 
 /**
- * Démarre l'interface utilisateur
+ * Starts user interface
  */
 void startUserInterface() {
     if(!initGraphics()) {
         exit(1);
     }
 
-    // Création du thread qui gère le rendering
+    // Thread that manages the rendering
     pthread_t thread1;
     pthread_create(&thread1, NULL, startMainLoop, NULL);
 
@@ -21,8 +21,8 @@ void startUserInterface() {
 }
 
 /**
- * Initialise la SDL et les fenêtres
- * @return réussi
+ * Initialize SDL and the window
+ * @return success
  */
 int initGraphics() {
     if (!initSDL() || !createWindow() || !createRenderer())
@@ -31,7 +31,7 @@ int initGraphics() {
 }
 
 /**
- * Initialise les libs SDL
+ * Initialize SDL and SDL libs
  */
 static int initSDL() {
     if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO) < 0) {
@@ -52,7 +52,7 @@ static int initSDL() {
 }
 
 /**
- * Création de la fenêtre SDL
+ * Creates SDL window
  */
 static int createWindow() {
     SDL_DisplayMode DM;
@@ -73,9 +73,10 @@ static int createWindow() {
 }
 
 /**
- * Création du renderer SDL
+ * Creates SDL renderer
  */
 static int createRenderer() {
+    // SDL_RENDERER_PRESENTVSYNC to cap at 60 fps
     gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_PRESENTVSYNC);
 
     if (gRenderer == NULL) {
@@ -88,9 +89,9 @@ static int createRenderer() {
 }
 
 /**
- * Récupère les dimensions de la fenêtre
- * @param w pointeur vers la variable qui va contenir la largeur
- * @param h pointeur vers la variable qui va contenir la hauteur
+ * Retrieve window dimensions
+ * @param w pointer to the variable that contains the width
+ * @param h pointer to the variable that contains the height
  */
 void getWindowWidth(int *w, int *h) {
     SDL_GetWindowSize(gWindow, w, h);

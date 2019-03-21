@@ -25,9 +25,9 @@ void processEvents() {
  * @param event event SDL
  */
 void processMouseWheel(SDL_MouseWheelEvent event) {
-    if (event.y == -1) { // molette bas
+    if (event.y == 1) { // molette haute
         zoom();
-    } else { // molette haute
+    } else { // molette bas
         unzoom();
     }
 
@@ -48,10 +48,10 @@ static void processKeyDown(SDL_Keysym key) {
             nbGradChange(2);
             break;
         case (113): // Q
-            nbGradChange(2);
+            //unzoom(2);
             break;
         case (115): // S
-            nbGradChange(2);
+            //nbGradChange(2);
             break;
         default:
             break;
