@@ -4,11 +4,11 @@ int main() {
     // testInterpreter();
 
     //srand(time(NULL));
-    startUserInterface();
+//    startUserInterface();
 
     //PARTIE CODE INTERPRETER (LOUISE ET FLAVIE)
-   /* double res = test_evaluation();
+    double res = test_evaluation();
     printf("f(x) = %lf", res);
-   */
+
     return 0;
 }

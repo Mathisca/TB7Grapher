@@ -3,6 +3,7 @@
  * Names: AMYOT Flavie, SALIBA Louise
  */
 #include "codeInterpreter.h"
+#include "../tokens.h"
 
 Result result(Entity e, double x) {
     Result r; // structure to return
@@ -230,13 +231,13 @@ double test_evaluation() { //test function of the program : creating a tree and 
     e->right_operand->left_operand->left_operand->left_operand = NULL;
     */
 
-    /*
+
     // sqrt(x) - 6^x
-    e->right_operand = malloc(sizeof(struct entitySt)); //allocating memory to the tree
-    e->left_operand = malloc(sizeof(struct entitySt));
+    e->left_operand = malloc(sizeof(struct entitySt)); //allocating memory to the tree
+    e->right_operand = malloc(sizeof(struct entitySt));
     e->left_operand->left_operand = malloc(sizeof(struct entitySt));
-    e->right_operand->left_operand->right_operand = malloc(sizeof(struct entitySt));
-    e->right_operand->right_operand->left_operand = malloc(sizeof(struct entitySt));
+    e->right_operand->left_operand = malloc(sizeof(struct entitySt));
+    e->right_operand->right_operand= malloc(sizeof(struct entitySt));
 
     e->element.token = OPERATOR; //main node is an operator
     e->element.value.operators = MINUS; // the value of this operator is a minus
@@ -256,10 +257,17 @@ double test_evaluation() { //test function of the program : creating a tree and 
     e->right_operand->left_operand->right_operand = NULL;
     e->right_operand->right_operand->left_operand = NULL;
     e->right_operand->right_operand->right_operand = NULL;
-    */
+
 
 
     r = result(e, 0.5); // calling the function that calculates f(x)
     res = r.value; //assigning the correct value to the returned value
+
+    free( e->right_operand->left_operand);
+    free (e->right_operand->right_operand) ;
+    free(e->left_operand->left_operand );
+    free( e->right_operand );
+    free(e->left_operand );
+    free (e);
     return res;
 }

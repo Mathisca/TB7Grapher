@@ -7,9 +7,11 @@
 
 #define TB7GRAPHER_CODEINTERPRETER_H
 
-
-#include "../lib.h"
-
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <malloc.h>
+#include "../tokens.h"
 /**
  * @brief Calcule le f(x) du x donné en paramètre avce la focntion dans l'arbre en paramètre
  *
