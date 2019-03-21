@@ -6,6 +6,9 @@ int main() {
     //srand(time(NULL));
     startUserInterface();
 
-
+    //PARTIE CODE INTERPRETER (LOUISE ET FLAVIE)
+   /* double res = test_evaluation();
+    printf("f(x) = %lf", res);
+   */
     return 0;
 }
