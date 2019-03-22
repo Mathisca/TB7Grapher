@@ -17,6 +17,10 @@ The SDL2, SDL2-Image and SDL2-ttf libraries are needed to compile the program.
 In order to build the program, you need the SDL libraries, please see [SDLwiki](https://wiki.libsdl.org/Installation).
 The executable **must** be in the same folder as the fonts folder
 
+### Usage
+
+Follow the instructions in the console.
+
 ## Built With
 
 * [SDL](https://www.libsdl.org/)
