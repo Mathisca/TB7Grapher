@@ -1,3 +1,8 @@
+/*
+ * File: guiManager.h
+ * Authors: CARIOU Mathis, DE POORTER Marianne
+ */
+
 #ifndef TB7GRAPHER_GUIMANAGER_H
 #define TB7GRAPHER_GUIMANAGER_H
 

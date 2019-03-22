@@ -1,6 +1,7 @@
-//
-// Created by mathisca on 19/03/19.
-//
+/*
+ * File: inputHandler.h
+ * Authors: CARIOU Mathis, DE POORTER Marianne
+ */
 
 #ifndef TB7GRAPHER_INPUTHANDLER_H
 #define TB7GRAPHER_INPUTHANDLER_H

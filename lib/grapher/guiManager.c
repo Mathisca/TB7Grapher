@@ -1,3 +1,8 @@
+/*
+ * File: guiManager.c
+ * Authors: CARIOU Mathis, DE POORTER Marianne
+ */
+
 #include <pthread.h>
 #include "guiManager.h"
 

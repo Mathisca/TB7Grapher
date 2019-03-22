@@ -93,7 +93,7 @@ struct valueArraySt {
     Point p;
     Entity e;
     SDL_Color color;
-    char * printableValue;
+    char *printableValue;
 
     ValueArray nextEntity;
 };

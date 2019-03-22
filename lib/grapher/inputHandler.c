@@ -1,3 +1,8 @@
+/*
+ * File: inputHandler.c
+ * Authors: CARIOU Mathis, DE POORTER Marianne
+ */
+
 #include "inputHandler.h"
 
 /**

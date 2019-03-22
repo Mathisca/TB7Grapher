@@ -1,3 +1,8 @@
+/*
+ * File: lexicalAnalyser.c
+ * Authors: PIETTE Benoit, Salim El Fadali
+ */
+
 #include "lexicalAnalyser.h"
 #include <stdlib.h>
 #include <string.h>

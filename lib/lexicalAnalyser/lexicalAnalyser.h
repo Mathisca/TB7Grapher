@@ -1,3 +1,8 @@
+/*
+ * File: lexicalAnalyser.h
+ * Authors: PIETTE Benoit, Salim El Fadali
+ */
+
 #include "../tokens.h"
 
 #ifndef TB7GRAPHER_LEXICALANALYSER_H

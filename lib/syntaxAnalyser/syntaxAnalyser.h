@@ -1,3 +1,9 @@
+/*
+ * File: syntaxAnalyser.h
+ * Names: DELFORGE Bastien
+ *        ALBRECHT Jérémy
+ * Date: 20/03/2019
+ */
 #ifndef TB7GRAPHER_SYNTAXANALYSER_H
 #define TB7GRAPHER_SYNTAXANALYSER_H
 

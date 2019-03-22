@@ -1,5 +1,5 @@
 /*
- * File: syntaxAnalyser.h
+ * File: syntaxAnalyser.c
  * Names: DELFORGE Bastien
  *        ALBRECHT Jérémy
  * Date: 20/03/2019

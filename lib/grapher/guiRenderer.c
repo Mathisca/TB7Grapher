@@ -1,3 +1,8 @@
+/*
+ * File: guiRenderer.c
+ * Authors: CARIOU Mathis, DE POORTER Marianne
+ */
+
 #include "guiRenderer.h"
 
 static TTF_Font *gFont; // font used in the program

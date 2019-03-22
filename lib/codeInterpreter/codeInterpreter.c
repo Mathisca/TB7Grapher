@@ -40,7 +40,7 @@ Result result(Entity e, double x) {
                               result(e->right_operand, x).value; //multiplying left and right sons
                     break;
                 case DIVIDE:
-                    if (e->left_operand->element.value.real == 0) { //non authorized value
+                    if (e->right_operand->element.value.real == 0) { //non authorized value
                         r.error = DIV_BY_ZERO; //changing the error type : division by zero
                     }
                     r.value = result(e->left_operand, x).value /
